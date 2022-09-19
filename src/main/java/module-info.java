@@ -9,8 +9,8 @@ module com.amal.amalproject {
     requires org.apache.commons.codec;
     requires org.apache.commons.io;
     requires commons.lang;
-    requires java.mail;
     requires twilio;
+    requires javax.mail;
     opens com.amal.amalproject to javafx.fxml;
     exports com.amal.amalproject;
     exports com.amal.amalproject.entities;
