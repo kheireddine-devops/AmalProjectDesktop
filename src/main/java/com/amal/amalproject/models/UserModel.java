@@ -2,6 +2,7 @@ package com.amal.amalproject.models;
 
 import com.amal.amalproject.entities.*;
 import com.amal.amalproject.utils.DBConnection;
+import com.amal.amalproject.utils.enums.AccountStatus;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import java.sql.*;
@@ -18,7 +19,7 @@ public class UserModel implements IUserModel {
         Compte compte = null;
         try {
             System.out.println("SELECT * FROM `compte` WHERE `login` = ? AND `password` = ?;");
-            PreparedStatement ps = connection.prepareStatement("SELECT id_compte,login,password,role,status FROM `compte` WHERE `login` = ? AND ((`password` = ?) OR (`temp_reset_password` = ?));");
+            PreparedStatement ps = connection.prepareStatement("SELECT C.id_compte,C.login,C.password,C.role,C.status FROM `compte` C WHERE C.login = ? AND ((C.password = ?) OR (C.temp_reset_password = ?)) AND C.status <> 'STATUS_BANNED' AND C.status <> 'STATUS_DEACTIVATE';");
             ps.setString(1,username);
             ps.setString(2,DigestUtils.sha256Hex(password));
             ps.setString(3,DigestUtils.sha256Hex(password));
@@ -1021,6 +1022,23 @@ public class UserModel implements IUserModel {
         try {
             PreparedStatement ps = connection.prepareStatement("UPDATE `compte` C SET C.temp_reset_password = ? WHERE C.id_compte = ?");
             ps.setString(1,DigestUtils.sha256Hex(passwordGenerated));
+            ps.setInt(2,compteId);
+            int resultat = ps.executeUpdate();
+
+            if(resultat == 1) {
+                return true;
+            }
+        } catch (SQLException exception) {
+            System.out.println(exception.getMessage());
+        }
+        return false;
+    }
+
+    @Override
+    public boolean changeAccountStatus(int compteId,AccountStatus status) {
+        try {
+            PreparedStatement ps = connection.prepareStatement("UPDATE `compte` C SET C.status = ? WHERE C.id_compte = ?");
+            ps.setString(1,status.toString());
             ps.setInt(2,compteId);
             int resultat = ps.executeUpdate();
 

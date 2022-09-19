@@ -1,6 +1,7 @@
 package com.amal.amalproject.models;
 
 import com.amal.amalproject.entities.*;
+import com.amal.amalproject.utils.enums.AccountStatus;
 
 import java.util.List;
 import java.util.Map;
@@ -41,4 +42,6 @@ public interface IUserModel {
     int getUserIdByEmail(String email);
 
     boolean forgotPassword(int compteId, String passwordGenerated);
+
+    boolean changeAccountStatus(int compteId,AccountStatus status);
 }
