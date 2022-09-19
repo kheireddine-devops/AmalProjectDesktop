@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 
-<BorderPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.amal.amalproject.controllers.AdminDashboardController"
-            prefHeight="400.0" prefWidth="600.0"
-            styleClass="admin-dashboard-view">
-
-    <center>
-        <Label text="Admin Dashbord Is Working"/>
-    </center>
-
-</BorderPane>
+<GridPane styleClass="admin-dashboard-view" fx:controller="com.amal.amalproject.controllers.AdminDashboardController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/18">
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="250" prefWidth="250" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="250" prefWidth="250" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints vgrow="SOMETIMES" />
+        <RowConstraints vgrow="SOMETIMES" />
+    </rowConstraints>
+   <children>
+      <PieChart minWidth="450" minHeight="450" fx:id="usersByTypeID" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+   </children>
+</GridPane>
