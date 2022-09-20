@@ -10,8 +10,38 @@ public class CommentaireAide {
 	private LocalDate dateCommentaire;
 	private int idCompte;
 	private int idDemande;
+	private String nom;
+	private String prenom;
 	public CommentaireAide() {
 		
+	}
+
+	public String getNom() {
+		return nom;
+	}
+
+	public String getPrenom() {
+		return prenom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	public void setPrenom(String prenom) {
+		this.prenom = prenom;
+	}
+
+	public CommentaireAide(int idCommentaire, String txtCommentaire, LocalDate dateCommentaire, int idCompte,
+						   int idDemande, String nom, String prenom) {
+		super();
+		this.idCommentaire = idCommentaire;
+		this.txtCommentaire = txtCommentaire;
+		this.dateCommentaire = dateCommentaire;
+		this.idCompte = idCompte;
+		this.idDemande = idDemande;
+		this.nom = nom;
+		this.prenom = prenom;
 	}
 	public CommentaireAide(int idCommentaire, String txtCommentaire,LocalDate dateCommentaire, int idCompte, int idDemande) {
 		super();

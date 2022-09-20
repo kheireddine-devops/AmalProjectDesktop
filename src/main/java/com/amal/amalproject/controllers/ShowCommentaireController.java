@@ -48,7 +48,9 @@ public class ShowCommentaireController {
     private Label txtSujet;
 
     @FXML
-    private TableColumn<?, ?> user;
+    private TableColumn<CommentaireAide, String> user;
+    @FXML
+    private TableColumn<CommentaireAide, String> prenom;
     ObservableList<CommentaireAide> obs = FXCollections.observableArrayList();
 
     @FXML
@@ -70,9 +72,20 @@ public class ShowCommentaireController {
                     LocalDate dateCommentaire = resultSet.getDate("dateCommentaire") != null ? resultSet.getDate("dateCommentaire").toLocalDate() : null;
                     int idCompte = resultSet.getInt("idCompte");
                     int idDemande = resultSet.getInt("idDemandeAide");
+                    String nom ="";
+                    String prenom="";
+                    PreparedStatement req = connection.prepareStatement("SELECT * FROM user WHERE id_user=? ");
+                    req.setInt(1, idCompte);
+                    ResultSet res = req.executeQuery();
+                    if(res.next()) {
+                        nom = res.getString("nom_user");
+                        prenom =res.getString("prenom_user");
+                        System.out.println("bonjour" +nom +prenom);
+
+                    }
 
 
-                    obs.add(new CommentaireAide(idCommentaire, txtCommentaire, dateCommentaire, idCompte, idDemande));
+                    obs.add(new CommentaireAide(idCommentaire, txtCommentaire, dateCommentaire, idCompte, idDemande,nom, prenom));
                 }}else {
                 	 Alert alert = new Alert(AlertType.INFORMATION);
                     	alert.setTitle("Aucun Commentaire!");
@@ -87,6 +100,8 @@ public class ShowCommentaireController {
     	 
          date.setCellValueFactory(new PropertyValueFactory<CommentaireAide, Date>("dateCommentaire"));
          Commentaire.setCellValueFactory(new PropertyValueFactory<CommentaireAide, String>("txtCommentaire"));
+        user.setCellValueFactory(new PropertyValueFactory<CommentaireAide, String>("nom"));
+        prenom.setCellValueFactory(new PropertyValueFactory<CommentaireAide, String>("prenom"));
          tableCommentaire.setItems(obs);
 
     }

@@ -73,7 +73,8 @@
             </Button>
             <TableView fx:id="tableCommentaire" layoutX="520.0" layoutY="159.0" prefHeight="290.0" prefWidth="433.0" style="-fx-background-color: #17A2B4; -fx-border-color: white; -fx-border-radius: 10px;">
               <columns>
-                <TableColumn fx:id="user" text="User" />
+                <TableColumn fx:id="user" text="Nom" />
+                 <TableColumn fx:id="prenom" text="Prenom" />
                 <TableColumn fx:id="date" prefWidth="100.0" text="Date" />
                   <TableColumn fx:id="Commentaire" prefWidth="252.0" text="Commentaire" />
               </columns>
