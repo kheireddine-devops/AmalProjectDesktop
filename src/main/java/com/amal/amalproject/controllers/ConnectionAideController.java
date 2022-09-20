@@ -57,14 +57,7 @@ public class ConnectionAideController{
     			 System.out.println("connexion" +login);
     			 
     			 
-    			FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/amal/amalproject/show-aides-view.fxml"));
-    			Parent root = (Parent) loader.load();
-    			 ShowAideController controller =loader.getController();
-    			 controller.GetidUser(idUser,login);
-    			 Scene scene = new Scene(root);
-    			 Stage stage = new Stage();
-    			 stage.setScene(scene);
-    			 stage.show();
+    			
     		 }else {
     			 Alert alert = new Alert(AlertType.INFORMATION);
              	alert.setTitle("Echec Connexion!");

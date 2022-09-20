@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.amal.amalproject.controllers.GestionAideController">
+   <children>
+      <ImageView fitHeight="600.0" fitWidth="1000" pickOnBounds="true">
+         <image>
+            <Image url="@../../../images/Ajoutaide.jpg" />
+         </image>
+      </ImageView>
+      <Pane prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #fff; -fx-opacity: 0.8;">
+         <children>
+            <VBox layoutX="178.0" layoutY="163.0" prefHeight="200.0" prefWidth="248.0" spacing="10.0">
+               <children>
+                  <TextField fx:id="txtSujet" style="-fx-border-color: blue; -fx-border-radius: 5px;" />
+                  <Label fx:id="errorsujet" textFill="#f20808">
+                     <font>
+                        <Font name="Times New Roman" size="12.0" />
+                     </font>
+                  </Label>
+                  <TextArea fx:id="TxtPublication" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue; -fx-border-radius: 5px;" />
+                  <Label fx:id="errortxt" textFill="#f50707" />
+               </children>
+            </VBox>
+            <TableView fx:id="tableAide" layoutX="491.0" layoutY="147.0" prefHeight="270.0" prefWidth="492.0" style="-fx-background-color: #17A2B4; -fx-border-color: white; -fx-border-radius: 10px;">
+              <columns>
+                <TableColumn fx:id="date" prefWidth="118.0" text="Date" />
+                <TableColumn fx:id="sujet" prefWidth="120.0" text="Sujet" />
+                  <TableColumn fx:id="demande" prefWidth="250.0" text="Demande" />
+              </columns>
+            </TableView>
+            <Separator layoutX="466.0" layoutY="100.0" orientation="VERTICAL" prefHeight="405.0" prefWidth="7.0" style="-fx-background-color: black;" />
+            <HBox layoutX="36.0" layoutY="450.0" prefHeight="100.0" prefWidth="390.0" spacing="20.0">
+               <children>
+                  <Button fx:id="btnAjouter" mnemonicParsing="false" onAction="#Ajouter" prefHeight="26.0" prefWidth="85.0" style="-fx-border-radius: 5px; -fx-border-color: white; -fx-background-color: #28a745;" text="Ajouter" textFill="#fcf9f9">
+                     <font>
+                        <Font name="Times New Roman" size="14.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnModif" mnemonicParsing="false" onAction="#Modifier" prefHeight="26.0" prefWidth="85.0" style="-fx-border-radius: 5px; -fx-border-color: white; -fx-background-color: #007bff;" text="Modifier" textFill="#fcf9f9">
+                     <font>
+                        <Font name="Times New Roman" size="14.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnSupp" mnemonicParsing="false" onAction="#Supprimer" prefHeight="26.0" prefWidth="80.0" style="-fx-border-radius: 5px; -fx-border-color: white; -fx-background-color: #dc3545;" text="Supprimer" textFill="#fcf9f9">
+                     <font>
+                        <Font name="Times New Roman" size="14.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnVider" mnemonicParsing="false" onAction="#vider" prefHeight="26.0" prefWidth="85.0" style="-fx-border-radius: 5px; -fx-border-color: white; -fx-background-color: #ffc107;" text="Vider" textFill="#fcf9f9">
+                     <font>
+                        <Font name="Times New Roman" size="14.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+            <Pane layoutX="-3.0" prefHeight="100.0" prefWidth="1006.0" style="-fx-background-color: #343a40;">
+               <children>
+                  <Label contentDisplay="CENTER" layoutX="339.0" layoutY="33.0" text="Gestion Demandes Aides" textAlignment="CENTER" textFill="#fcf7f7">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="89.0" fitWidth="96.0" layoutX="84.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../images/logo.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="100.0" fitWidth="145.0" layoutX="814.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../images/aide.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Button fx:id="btnCom" layoutX="737.0" layoutY="505.0" mnemonicParsing="false" onAction="#afficherCom" style="-fx-background-color: none;" text="&gt;&gt; Afficher les commentaires" textFill="#180668">
+               <font>
+                  <Font name="System Bold Italic" size="14.0" />
+               </font>
+            </Button>
+            <Label fx:id="idd" layoutX="150.0" layoutY="121.0" />
+            <Label fx:id="dated" layoutX="209.0" layoutY="121.0" />
+         </children>
+      </Pane>
+      <VBox layoutX="39.0" layoutY="164.0" prefHeight="200.0" prefWidth="132.0" spacing="30.0">
+         <children>
+            <Label text="Sujet">
+               <font>
+                  <Font name="Times New Roman Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label text="Texte Publication">
+               <padding>
+                  <Insets bottom="20.0" />
+               </padding>
+               <font>
+                  <Font name="Times New Roman Bold" size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+   </children>
+</Pane>

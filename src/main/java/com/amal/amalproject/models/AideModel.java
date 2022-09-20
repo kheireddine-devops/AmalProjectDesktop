@@ -24,7 +24,7 @@ public class AideModel  {
 	
 		 try {
 
-	            PreparedStatement ps = connection.prepareStatement("INSERT INTO demandeaide(id_demande_aide, contenue, sujet, date_publication, id_user) VALUES (NULL,?,?,?,'1')");
+	            PreparedStatement ps = connection.prepareStatement("INSERT INTO demandeaide(id_demande_aide, contenue, sujet, date_publication, id_user) VALUES (NULL,?,?,?,'3')");
 
 	            aide.setDatePublication(LocalDate.now());
 	            
@@ -66,7 +66,7 @@ public class AideModel  {
             ps.setString(1, aide.getContenue());
             ps.setString(3,aide.getSujet());
             ps.setDate(2, Date.valueOf(aide.getDatePublication())  );
-            ps.setInt(4, 1);
+            ps.setInt(4, 3);
             ps.setInt(5, aide.getIdAide());
             
             n = ps.executeUpdate();
@@ -128,7 +128,7 @@ public class AideModel  {
 		   PreparedStatement ps = connection.prepareStatement("SELECT * FROM demandeaide WHERE id_demande_aide=?");
 		   ps.setInt(1, id);
 		   ResultSet rst = ps.executeQuery();
-		   while (rst.next()) {
+		   if (rst.next()) {
 
 		        int idAide = rst.getInt("id_demande_aide");
 			String contenue = rst.getString("contenue");
@@ -143,6 +143,13 @@ public class AideModel  {
 			   aide.setIdUser(idUser);
 
 		            }
+		   else {
+			   Alert alert = new Alert(AlertType.INFORMATION);
+           	alert.setTitle("Recherche non valide!");
+           	alert.setHeaderText("Information");
+           	alert.setContentText("Ooops! Entrer un ID valide");
+           	alert.showAndWait();
+		   }
 		   
 	   }catch (SQLException e) {
 			System.out.println(e.getMessage());

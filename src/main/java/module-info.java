@@ -11,6 +11,7 @@ module com.amal.amalproject {
     requires commons.lang;
     requires twilio;
     requires javax.mail;
+	requires java.desktop;
     opens com.amal.amalproject to javafx.fxml;
     exports com.amal.amalproject;
     exports com.amal.amalproject.entities;
