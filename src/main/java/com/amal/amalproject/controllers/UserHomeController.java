@@ -93,6 +93,22 @@ public class UserHomeController extends SharedController implements Initializabl
                 System.out.println(MenuEnum.MENU_LIST_EMPLOI_VIEW);
                 this.viewsID.setContent(MainApplication.includeView("ListEmploi"));
                 break;
+            case MENU_BENEVOLE_GESTION_PUBLICATION_FORMATION:
+                System.out.println(MenuEnum.MENU_BENEVOLE_GESTION_PUBLICATION_FORMATION);
+                this.viewsID.setContent(MainApplication.includeView("GestionPublicationFormation"));
+                break;
+            case MENU_BENEVOLE_GESTION_TUTORIEL:
+                System.out.println(MenuEnum.MENU_BENEVOLE_GESTION_TUTORIEL);
+                this.viewsID.setContent(MainApplication.includeView("Gestiontutoriel"));
+                break;
+            case MENU_BENEFICIER_GESTION_PUBLICATION_FORMATION:
+                System.out.println(MenuEnum.MENU_BENEFICIER_GESTION_PUBLICATION_FORMATION);
+                this.viewsID.setContent(MainApplication.includeView("BeneficiairePublicationFormation"));
+                break;
+            case MENU_BENEFECIER_TUTORIEL:
+                System.out.println(MenuEnum.MENU_BENEFECIER_TUTORIEL);
+                this.viewsID.setContent(MainApplication.includeView("BeneficiaireTutoriel"));
+                break;
             default:
                 System.out.println("MENU : PROBLEM");
         }
@@ -105,7 +121,7 @@ public class UserHomeController extends SharedController implements Initializabl
 
         if(compte == null) {
             /* admin benevole benificier doctor organization */
-            compte = userModel.login("benificier","azeAZE123*");
+            compte = userModel.login("organization","azeAZE123*");
             SessionUtils.addCurrentUser(compte);
         }
 
@@ -147,6 +163,8 @@ public class UserHomeController extends SharedController implements Initializabl
                     menuItemButtons.addAll( List.of(
                             new MenuItemButton("Gestion Aides",MenuEnum.MENU_GESTION_AIDE_VIEW.toString()),
                             new MenuItemButton("Offres",MenuEnum.MENU_OFFRES_EMPLOI_VIEW.toString()),
+                            new MenuItemButton("Publication formation",MenuEnum.MENU_BENEFICIER_GESTION_PUBLICATION_FORMATION.toString()),
+                            new MenuItemButton("Tutoriels",MenuEnum.MENU_BENEFECIER_TUTORIEL.toString()),
                             new MenuItemButton("Profile Management",MenuEnum.MENU_EDIT_USER_VIEW.toString())
                     ));
                     break;
@@ -154,6 +172,8 @@ public class UserHomeController extends SharedController implements Initializabl
                     menuItemButtons.addAll( List.of(
                             new MenuItemButton("Rendez-vous",MenuEnum.MENU_RENDEZ_VOUS_VIEW.toString()),
                             new MenuItemButton("Aides Management",MenuEnum.MENU_SHOW_AIDES_VIEW.toString()),
+                            new MenuItemButton("Publication formation",MenuEnum.MENU_BENEVOLE_GESTION_PUBLICATION_FORMATION.toString()),
+                        new MenuItemButton("Tutoriels",MenuEnum.MENU_BENEVOLE_GESTION_TUTORIEL.toString()),
                             new MenuItemButton("Profile Management",MenuEnum.MENU_EDIT_USER_VIEW.toString())
                     ));
                     break;

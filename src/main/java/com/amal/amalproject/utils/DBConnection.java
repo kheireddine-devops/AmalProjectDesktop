@@ -22,6 +22,11 @@ public class DBConnection {
 
         return INSTANCE;
     }
+    public static void closeConnection()
+    {       
+        if(INSTANCE != null)
+        	INSTANCE = null;
+    }
 
 }
 

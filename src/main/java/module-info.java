@@ -20,4 +20,7 @@ module com.amal.amalproject {
     exports com.amal.amalproject.controllers;
     opens com.amal.amalproject.controllers to javafx.fxml;
     opens com.amal.amalproject.entities to javafx.fxml;
+	requires mysql.connector.java;
+    exports  com.amal.amalproject.models;
+    opens com.amal.amalproject.models;
 }

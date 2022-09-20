@@ -22,6 +22,22 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.30</version>
         </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.openjfx</groupId>-->
+<!--            <artifactId>javafx-controls</artifactId>-->
+<!--            <version>13.0.2</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.openjfx</groupId>-->
+<!--            <artifactId>javafx-media</artifactId>-->
+<!--            <version>11.0.2</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.openjfx</groupId>-->
+<!--            <artifactId>javafx-media</artifactId>-->
+<!--            <version>15</version>-->
+<!--            <type>pom</type>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
@@ -112,14 +128,15 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
+
         
     <dependency>
      <groupId>javax.mail</groupId>
      <artifactId>mail</artifactId>
      <version>1.4.5</version>
      </dependency>
-     
-    </dependencies>
+
+
 
 <!--    <repositories>-->
 <!--        <repository>-->
@@ -128,6 +145,8 @@
 <!--        </repository>-->
 <!--    </repositories>-->
 
+
+    </dependencies>
     <build>
         <plugins>
             <plugin>
@@ -161,4 +180,6 @@
             </plugin>
         </plugins>
     </build>
+
+
 </project>
