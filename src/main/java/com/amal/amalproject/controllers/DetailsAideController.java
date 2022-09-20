@@ -9,9 +9,11 @@ import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import com.amal.amalproject.entities.Aide;
+import com.amal.amalproject.entities.Compte;
 import com.amal.amalproject.entities.User;
 import com.amal.amalproject.utils.DBConnection;
 
+import com.amal.amalproject.utils.SessionUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -80,11 +82,12 @@ public class DetailsAideController implements Initializable {
     	String com = commentaire.getText();
     	try {
     		Connection connection = DBConnection.getConnection();
+			Compte compte = SessionUtils.getCurrentUser();
     		PreparedStatement ps =connection.prepareStatement("INSERT INTO commentaireaide(idCommentaire, txtCommentaire, dateCommentaire, idCompte, idDemandeAide) VALUES (null,?,?,?,?)");
     		LocalDate dt=LocalDate.now();
     		ps.setString(1, com);
     		ps.setDate(2, Date.valueOf(dt));
-    		ps.setInt(3, 3);
+    		ps.setInt(3, compte.getCompteId());
     		ps.setInt(4, idaide);
     		int n =ps.executeUpdate();
     		 if(n == 1) {

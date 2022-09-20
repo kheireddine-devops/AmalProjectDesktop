@@ -92,8 +92,8 @@
                   <Font name="System Bold Italic" size="14.0" />
                </font>
             </Button>
-            <Label fx:id="idd" layoutX="150.0" layoutY="121.0" />
-            <Label fx:id="dated" layoutX="209.0" layoutY="121.0" />
+            <Label fx:id="idd" layoutX="150.0" layoutY="121.0" style="visibility: hidden"/>
+            <Label fx:id="dated" layoutX="209.0" layoutY="121.0" style="visibility: hidden"/>
          </children>
       </Pane>
       <VBox layoutX="39.0" layoutY="164.0" prefHeight="200.0" prefWidth="132.0" spacing="30.0">

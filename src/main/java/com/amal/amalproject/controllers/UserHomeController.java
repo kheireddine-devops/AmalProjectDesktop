@@ -71,7 +71,7 @@ public class UserHomeController extends SharedController implements Initializabl
                 break;
             case MENU_SHOW_AIDES_VIEW:
                 System.out.println(MenuEnum.MENU_SHOW_AIDES_VIEW);
-                this.viewsID.setContent(MainApplication.includeView("show-aides-view"));
+                this.viewsID.setContent(MainApplication.includeView("Show-allaide-view"));//TODO
                 break;
             case MENU_ADMIN_DASHBOARD_VIEW:
                 System.out.println(MenuEnum.MENU_ADMIN_DASHBOARD_VIEW);
@@ -84,6 +84,10 @@ public class UserHomeController extends SharedController implements Initializabl
             case MENU_USERS_MANAGEMENT_VIEW:
                 System.out.println(MenuEnum.MENU_USERS_MANAGEMENT_VIEW);
                 this.viewsID.setContent(MainApplication.includeView("users-management-view"));
+                break;
+            case MENU_GESTION_AIDE_VIEW:
+                System.out.println(MenuEnum.MENU_GESTION_AIDE_VIEW);
+                this.viewsID.setContent(MainApplication.includeView("gestion-aide-view"));
                 break;
             default:
                 System.out.println("MENU : PROBLEM");
@@ -137,7 +141,7 @@ public class UserHomeController extends SharedController implements Initializabl
             switch (RoleEnum.valueOf(compte.getRole())) {
                 case ROLE_BENEFICIER:
                     menuItemButtons.addAll( List.of(
-                            new MenuItemButton("Profile Management",MenuEnum.MENU_EDIT_USER_VIEW.toString()),
+                            new MenuItemButton("Gestion Aides",MenuEnum.MENU_GESTION_AIDE_VIEW.toString()),
                             new MenuItemButton("Offres Emploi",MenuEnum.MENU_OFFRES_EMPLOI_VIEW.toString()),
                             new MenuItemButton("Profile Management",MenuEnum.MENU_EDIT_USER_VIEW.toString())
                     ));

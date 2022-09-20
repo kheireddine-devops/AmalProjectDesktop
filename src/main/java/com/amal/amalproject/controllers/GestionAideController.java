@@ -10,8 +10,10 @@ import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import com.amal.amalproject.entities.Aide;
+import com.amal.amalproject.entities.Compte;
 import com.amal.amalproject.utils.DBConnection;
 
+import com.amal.amalproject.utils.SessionUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -80,7 +82,8 @@ public class GestionAideController implements Initializable {
         	 try {
 
         	    Connection connection = DBConnection.getConnection();
- 	            PreparedStatement ps = connection.prepareStatement("INSERT INTO demandeaide(id_demande_aide, contenue, sujet, date_publication, id_user) VALUES (NULL,?,?,?,'3')");
+				 Compte compte = SessionUtils.getCurrentUser();
+ 	            PreparedStatement ps = connection.prepareStatement("INSERT INTO demandeaide(id_demande_aide, contenue, sujet, date_publication, id_user) VALUES (NULL,?,?,?,?)");
 
  	            Aide aide = new Aide();
 				aide.setDatePublication(LocalDate.now());
@@ -88,6 +91,7 @@ public class GestionAideController implements Initializable {
  	            ps.setString(1, contenue);
  	            ps.setString(2, subject);
  	            ps.setDate(3, Date.valueOf(aide.getDatePublication())  );
+				 ps.setInt(4,compte.getCompteId());
 
  	            int n = ps.executeUpdate();
 
@@ -215,8 +219,9 @@ public class GestionAideController implements Initializable {
     	try {
 
     		Connection connection = DBConnection.getConnection();
-
-            PreparedStatement ps = connection.prepareStatement("SELECT * FROM demandeaide WHERE id_user=3");
+			Compte compte = SessionUtils.getCurrentUser();
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM demandeaide WHERE id_user=?");
+			ps.setInt(1,compte.getCompteId());
 
             ResultSet resultSet = ps.executeQuery();
 
