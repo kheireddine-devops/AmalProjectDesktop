@@ -2,6 +2,8 @@ package com.amal.amalproject.utils;
 
 import javax.mail.*;
 import javax.mail.internet.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.Properties;
 
 public class MailUtils {
@@ -63,5 +65,37 @@ public class MailUtils {
     public boolean sendTextMail(String to, String subject, String message) {
 
         return false;
+    }
+
+    public static boolean sendMailFile(String to, String subject, String content,String filename)  {
+        try{
+            Message message = new MimeMessage(getSession());
+            message.setFrom(new InternetAddress("amal@contact.com"));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+            message.setSubject(subject);
+
+            MimeBodyPart mimeBodyPart = new MimeBodyPart();
+            mimeBodyPart.setContent(content, "text/html; charset=utf-8");
+
+            MimeBodyPart attachmentBodyPart = new MimeBodyPart();
+            attachmentBodyPart.attachFile(new File(filename));
+
+            Multipart multipart = new MimeMultipart();
+            multipart.addBodyPart(mimeBodyPart);
+            multipart.addBodyPart(attachmentBodyPart);
+
+            message.setContent(multipart);
+
+            Transport.send(message);
+        } catch (AddressException e) {
+            System.out.println(e.getMessage());
+        } catch (MessagingException e) {
+            System.out.println(e.getMessage());
+            return false;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return true;
     }
 }

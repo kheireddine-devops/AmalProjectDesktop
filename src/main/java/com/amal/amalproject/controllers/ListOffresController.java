@@ -80,7 +80,7 @@ public class ListOffresController extends SharedController implements Initializa
 		 
 
 		try {
-			ArrayList<Emploi> list = empModel.readAll();
+			ArrayList<Emploi> list = empModel.readAllOffres();
 		
 			this.remplirTab(list);
 		} catch (SQLException e) {
@@ -193,7 +193,7 @@ public class ListOffresController extends SharedController implements Initializa
             
             definingColumn();
         
-            setListEmploi(empModel.readAll());
+            setListEmploi(empModel.readAllOffres());
 
             ObservableList<Emploi> obs = FXCollections.observableArrayList(listEmploi);
             table.setItems(obs);

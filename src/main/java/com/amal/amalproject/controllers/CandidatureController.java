@@ -10,6 +10,7 @@ import com.amal.amalproject.entities.Emploi;
 import com.amal.amalproject.models.CandidatureModel;
 import com.amal.amalproject.models.EmploiModel;
 import com.amal.amalproject.utils.JavaMailAttachement;
+import com.amal.amalproject.utils.MailUtils;
 import com.amal.amalproject.utils.Navigate;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -87,7 +88,8 @@ public class CandidatureController implements Initializable {
 				 + "Disponible dans les plus brefs délais, je reste à votre disposition pour tout complément d’information."
 				 + "\r\n" + "Monsieur, mes salutations distinguées.";
 		 final String anexo = txturlcv.getText();
-		 JavaMailAttachement.sendEmail(from, password, to, title, content, anexo);
+//		 JavaMailAttachement.sendEmail(from, password, to, title, content, anexo);
+		 MailUtils.sendMailFile(to,title,content,anexo);
 		 System.out.println("mail sending");
 
 		 Candidature cand = new Candidature(emp.getId_emploi(), 1, emp.getDate_expiration(), txturlcv.getText(), txtetude.getText());

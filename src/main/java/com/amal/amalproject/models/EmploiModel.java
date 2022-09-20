@@ -118,6 +118,33 @@ public class EmploiModel implements Iservice <Emploi>{
 	}
 
 
+	public ArrayList<Emploi> readAllOffres() {
+		ArrayList<Emploi> emplois = new ArrayList<Emploi>();
+		try {
+			PreparedStatement ps = connection.prepareStatement("SELECT id_emploi,titre_emploi,descriptif_emploi,secteur,ref_emploi,date_expiration FROM emplois;");
+			ResultSet resultSet = ps.executeQuery();
+
+			while (resultSet.next()) {
+
+				int id_emploi = resultSet.getInt("id_emploi");
+				String titre_emploi = resultSet.getString("titre_emploi");
+				String descriptif_emploi = resultSet.getString("descriptif_emploi");
+				String secteur = resultSet.getString("secteur");
+				String ref_emploi = resultSet.getString("ref_emploi");
+				Date date_expiration = resultSet.getDate("date_expiration");
+
+				emplois.add(new Emploi (id_emploi,titre_emploi, descriptif_emploi,secteur,ref_emploi,(java.sql.Date) date_expiration));
+
+			}
+
+		}
+		catch (SQLException exception) {
+			System.out.println(exception.getMessage());
+		}
+		return emplois;
+	}
+
+
 
 
 	@Override
