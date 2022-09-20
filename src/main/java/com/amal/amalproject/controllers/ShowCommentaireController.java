@@ -63,16 +63,17 @@ public class ShowCommentaireController {
                 ps.setInt(1, id);
                 ResultSet resultSet = ps.executeQuery();
                 
-                if(resultSet.next()) {
-                      int idCommentaire = resultSet.getInt("idCommentaire");
-    	              String txtCommentaire = resultSet.getString("txtCommentaire");
-    	              LocalDate dateCommentaire = resultSet.getDate("dateCommentaire") != null ? resultSet.getDate("dateCommentaire").toLocalDate() : null;
-                      int idCompte = resultSet.getInt("idCompte");
-    	              int idDemande = resultSet.getInt("idDemandeAide");
-    	              
+                if(resultSet.next()){
+                while(resultSet.next()) {
+                    int idCommentaire = resultSet.getInt("idCommentaire");
+                    String txtCommentaire = resultSet.getString("txtCommentaire");
+                    LocalDate dateCommentaire = resultSet.getDate("dateCommentaire") != null ? resultSet.getDate("dateCommentaire").toLocalDate() : null;
+                    int idCompte = resultSet.getInt("idCompte");
+                    int idDemande = resultSet.getInt("idDemandeAide");
+
 
                     obs.add(new CommentaireAide(idCommentaire, txtCommentaire, dateCommentaire, idCompte, idDemande));
-                }else {
+                }}else {
                 	 Alert alert = new Alert(AlertType.INFORMATION);
                     	alert.setTitle("Aucun Commentaire!");
                     	alert.setHeaderText("Information");
