@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.amal.amalproject.controllers.UsersManagementController"
+            styleClass="users-management-view">
+    <center>
+        <TableView fx:id="usersTableViewID" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        </TableView>
+    </center>
+<!--    <right>-->
+<!--        <VBox styleClass="display-users-view">-->
+<!--            <children>-->
+
+<!--            </children>-->
+<!--        </VBox>-->
+<!--    </right>-->
+</BorderPane>

@@ -7,6 +7,10 @@ public class Compte {
     private String role;
     private String status;
 
+    private String tempResetPassword;
+    private String tempValidatePhone;
+    private String tempValidateMail;
+
 
     /* Start Section Constructor */
     public Compte() {
@@ -53,6 +57,30 @@ public class Compte {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getTempResetPassword() {
+        return tempResetPassword;
+    }
+
+    public void setTempResetPassword(String tempResetPassword) {
+        this.tempResetPassword = tempResetPassword;
+    }
+
+    public String getTempValidatePhone() {
+        return tempValidatePhone;
+    }
+
+    public void setTempValidatePhone(String tempValidatePhone) {
+        this.tempValidatePhone = tempValidatePhone;
+    }
+
+    public String getTempValidateMail() {
+        return tempValidateMail;
+    }
+
+    public void setTempValidateMail(String tempValidateMail) {
+        this.tempValidateMail = tempValidateMail;
     }
     /* End Section Getters & Setters */
 

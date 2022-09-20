@@ -17,24 +17,17 @@ public class MainApplication extends Application {
 
     @Override
 
-    public void start(Stage primaryStage) throws IOException {
+    public void start(Stage stage) throws IOException {
 
-    	/* FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("AddEmploi.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 800, 600);
+
+        scene = new Scene(new BorderPane(), 1000, 800);
+        loadView("login-view");
+
+
         stage.setTitle("Amal Application");
         stage.setScene(scene);
-        stage.show();*/
-        
-        
-        
-        Parent root=FXMLLoader.load(getClass().getResource("ListOffres.fxml"));
-        
-        Scene scene = new Scene(root,800,600);
-        //scene.getStylesheets().add(getClass().getResource("stylessabrine.css").toExternalForm());
-        
-        primaryStage.setTitle("Ajout offre");
-        primaryStage.setScene(scene);
-        primaryStage.show();
+//        stage.setResizable(true);
+        stage.show();
     }
     public static void loadView(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
@@ -48,6 +41,18 @@ public class MainApplication extends Application {
 
     public static Parent includeView(String fxml) throws IOException {
         return loadFXML(fxml);
+    }
+
+    public static FXMLLoader loadSubFXML(String fxml) {
+        URL urlUserHomeCss = MainApplication.class.getResource("user-home-view.css");
+        URL url = MainApplication.class.getResource(fxml + ".css");
+        if (url != null) {
+            scene.getStylesheets().clear();
+            scene.getStylesheets().add(urlUserHomeCss.toExternalForm());
+            scene.getStylesheets().add(url.toExternalForm());
+        }
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource(fxml + ".fxml"));
+        return fxmlLoader;
     }
 
     private static Parent loadFXML(String fxml) throws IOException {

@@ -4,10 +4,15 @@ import com.amal.amalproject.entities.Beneficier;
 import com.amal.amalproject.entities.Compte;
 import com.amal.amalproject.entities.Organization;
 import com.amal.amalproject.models.UserModel;
+import com.amal.amalproject.utils.MailUtils;
+import com.amal.amalproject.utils.TwilioSMSUtils;
+import com.amal.amalproject.utils.enums.AccountStatus;
+import com.amal.amalproject.utils.enums.RoleEnum;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import org.apache.commons.lang.RandomStringUtils;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -61,8 +66,10 @@ public class AddOrganizationController extends SharedController implements Initi
             Compte compte = new Compte();
             compte.setLogin(loginID.getText());
             compte.setPassword(passwordID.getText());
-            compte.setRole("ROLE_ORGANIZATION");
-            compte.setStatus("ACTIVE");
+            compte.setRole(RoleEnum.ROLE_ORGANIZATION.toString());
+            compte.setStatus(AccountStatus.STATUS_ACTIVE_NOT_VERIFIED_PHONE_NOT_VERIFIED_MAIL.toString());
+            compte.setTempValidateMail(RandomStringUtils.random(6, false, true));
+            compte.setTempValidatePhone(RandomStringUtils.random(6, false, true));
             System.out.println(compte);
             /******************************** End Entity Compte ********************************/
             /******************************** Start Entity Organization ********************************/
@@ -74,6 +81,7 @@ public class AddOrganizationController extends SharedController implements Initi
             organization.setFormJuridique(formJuridiqueID.getValue());
             organization.setMatriculeFiscale(matriculeID.getText());
             organization.setNumPhone(telephoneID.getText());
+            organization.setPhoto("DEFAULT-URL");
             organization.setCompte(compte);
 
             System.out.println(organization);
@@ -81,6 +89,28 @@ public class AddOrganizationController extends SharedController implements Initi
             Organization savedOrganization = userModel.addOrganization(organization);
 
             if (savedOrganization != null) {
+
+                String subjectMail = "Validation de l'adresse e-mail associée à votre compte";
+                String htmlMail = " <div style='background-color:#ffffff;border: solid 1px silver ;padding:1em;color: #2C3333;font-family: Arial, Helvetica, sans-serif;font-size: 14px; line-height: 1.5em;'>\n" +
+                        "        <h2 style='text-align:center'>Validation de l'adresse e-mail associée à votre compte</h2>\n" +
+                        "        <hr>\n" +
+                        "        <h3>Bonjour "+organization.getNom()+",</h3>\n" +
+                        "\n" +
+                        "        <p>Bienvenue chez AmalApplication !</p>\n" +
+                        "        <p>Vous faites désormais partie de la communauté tunisienne des beneficiers, des benevoles des medecins et d'organizations collaborant pour aidez les autres et participer à la vie associative</p>\n" +
+                        "\n" +
+                        "        <p>Une fois connecté(e), rendez vous dans vos paramètres pour valider votre email et compléter votre profil.</p>\n" +
+                        "\n" +
+                        "        <p>Code de validation: <span style='letter-spacing: 0.3em;border: solid 1px silver  ;padding:0.5em 1em;font-weight: bold;background-color: #B7C4CF;'>"+organization.getCompte().getTempValidateMail()+"</span></p>\n" +
+                        "\n" +
+                        "        <p>À bientôt,<br>L'équipe AmalApplication</p>\n" +
+                        "    </div>";
+
+                MailUtils.sendHtmlMail(savedOrganization.getEmail(),subjectMail,htmlMail);
+                System.out.println("SUCCESS-SEND-MAIL");
+                String smsMessage = "Bonjour "+organization.getNom()+"\nVotre code de validation : "+organization.getCompte().getTempValidatePhone();
+                TwilioSMSUtils.sendMessage("+216" + savedOrganization.getNumPhone(),smsMessage);
+                System.out.println("SUCCESS-SEND-SMS");
 
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, "Vous avez terminé avec succès le processus d'inscription\ncliquer sur ok puis s'authentifiez par votre login et mot de passe", ButtonType.OK);
                 alert.setTitle("Inscription");

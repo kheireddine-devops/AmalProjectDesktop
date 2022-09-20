@@ -18,7 +18,8 @@ public static FXMLLoader changerScene( Event event ,String url,String titre) thr
 	//Parent viewParent = FXMLLoader.load(MainApplication.class.getResource(url));
 	
 	Scene viewScene = new Scene(viewParent);
-    Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+    /*Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();*/
+    Stage window = new Stage();
     window.setScene(viewScene);
     window.show();
     window.setTitle(titre);

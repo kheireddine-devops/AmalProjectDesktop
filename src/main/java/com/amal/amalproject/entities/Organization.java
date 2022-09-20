@@ -11,6 +11,8 @@ public class Organization {
     private String adresse;
     private Compte compte;
 
+    private String photo;
+
 
     /* Start Section Constructors */
     public Organization() {
@@ -81,6 +83,14 @@ public class Organization {
     public void setCompte(Compte compte) {
         this.compte = compte;
     }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
     /* End Section Getters & Setters */
 
 
@@ -89,6 +99,7 @@ public class Organization {
     @Override
     public String toString() {
         return "Organization{" +
+                "userId='" + userId + '\'' +
                 "matriculeFiscale='" + matriculeFiscale + '\'' +
                 ", nom='" + nom + '\'' +
                 ", formJuridique='" + formJuridique + '\'' +

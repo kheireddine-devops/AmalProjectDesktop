@@ -9,15 +9,20 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import com.amal.amalproject.MainApplication;
+import com.amal.amalproject.entities.Compte;
 import com.amal.amalproject.entities.Emploi;
 import com.amal.amalproject.models.EmploiModel;
 import com.amal.amalproject.utils.Navigate;
+import com.amal.amalproject.utils.SessionUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -25,8 +30,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 
-public class ListOffresController implements Initializable {
+public class ListOffresController extends SharedController implements Initializable {
 
     @FXML
     private Button btnpostuler;
@@ -98,7 +105,8 @@ public class ListOffresController implements Initializable {
     }
     @FXML
     void OnAnnuler(ActionEvent event) throws IOException {
-    	Navigate.changerScene(event, "Candidature.fxml", "Liste des offres");
+//    	Navigate.changerScene(event, "Candidature.fxml", "Liste des offres");
+
     }
 
     @FXML
@@ -108,13 +116,23 @@ public class ListOffresController implements Initializable {
 
     @FXML
     void OnPostuler(ActionEvent event) throws IOException {
-    	
+
+
     	 FXMLLoader loader= Navigate.changerScene(event, "Candidature.fxml", "Liste des offres");
  		//envoi des donnés ente les scénes
  		  CandidatureController controller=loader.getController();
  		  controller.getFields(table.getSelectionModel().getSelectedItem());
-    	
-    	
+
+
+
+//        FXMLLoader loader= MainApplication.loadSubFXML("Candidature");
+//        CandidatureController controller=loader.getController();
+//        controller.getFields(table.getSelectionModel().getSelectedItem());
+
+        Compte compte = SessionUtils.getCurrentUser();
+        compte.getCompteId();
+        System.out.println(compte);
+
     	
     }
 

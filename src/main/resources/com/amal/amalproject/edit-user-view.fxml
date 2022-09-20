@@ -2,33 +2,60 @@
 
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-
 <?import javafx.scene.control.Label?>
-<BorderPane styleClass="edit-user-view" stylesheets="@edit-user-view.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.amal.amalproject.controllers.EditUserController">
-   <center>
-      <TabPane styleClass="tab-pane-container" maxWidth="Infinity" maxHeight="Infinity" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
-        <tabs>
-          <Tab styleClass="tab-title" text="Changer votre Photo de profil ">
-            <content>
-              <BorderPane styleClass="tab-container">
-                  <center>
-                      <Label text="Changer Photo Is Working"/>
-                  </center>
-              </BorderPane>
-            </content>
-          </Tab>
-          <Tab styleClass="tab-title" text="Modifier votre profil">
-            <content>
-                <BorderPane styleClass="tab-container">
-                    <center>
-                        <Label text="Modifier Profile Is Working"/>
-                    </center>
-                </BorderPane>
-            </content>
-          </Tab>
-        </tabs>
-      </TabPane>
-   </center>
-</BorderPane>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.control.Separator?>
+<TabPane
+        styleClass="edit-user-view"
+        xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
+        fx:controller="com.amal.amalproject.controllers.EditUserController"
+        side="TOP"  maxWidth="Infinity" maxHeight="Infinity" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+<tabs>
+    <Tab styleClass="tab-title" text="Changer votre Photo de profil ">
+        <content>
+            <BorderPane styleClass="tab-container">
+                <center>
+                    <VBox styleClass="edit-photo-container">
+                        <children>
+                            <Label text="Mettre à jour votre photo de profil"/>
+                            <ImageView fx:id="imageViewID" styleClass="user-avatar" layoutX="40.0" layoutY="25.0" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@../../../images/unknown-user.jpg" />
+                                </image>
+                            </ImageView>
+                            <TextField disable="true" styleClass="edit-photo-input" fx:id="photoID"/>
+                            <Button text="Choisir une Photo" onAction="#OnChoosePhotoAction"/>
+                            <Separator/>
+                            <Button text="Changer le photo" onAction="#OnEditPhotoAction"/>
+                        </children>
+                    </VBox>
+                </center>
+            </BorderPane>
+        </content>
+    </Tab>
+    <Tab styleClass="tab-title" text="Modifier votre mot de passe">
+        <content>
+            <BorderPane styleClass="tab-container">
+                <center>
+                    <Label text="Modifier Profile Is Working"/>
+                </center>
+            </BorderPane>
+        </content>
+    </Tab>
+    <Tab styleClass="tab-title" text="Validate Email / Numéro de téléphone">
+        <content>
+            <BorderPane styleClass="tab-container">
+                <center>
+                    <Label text="Validate Email / Numéro de téléphone"/>
+                </center>
+            </BorderPane>
+        </content>
+    </Tab>
+</tabs>
+</TabPane>

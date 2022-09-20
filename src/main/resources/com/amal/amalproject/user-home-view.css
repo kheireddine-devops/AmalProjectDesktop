@@ -25,6 +25,10 @@
     -fx-cursor: hand;
 }
 
+.sidebar Button.menu-item-active {
+    -fx-background-color: tomato;
+}
+
 .sidebar .seprator {
     -fx-padding: 0.5em;
 }

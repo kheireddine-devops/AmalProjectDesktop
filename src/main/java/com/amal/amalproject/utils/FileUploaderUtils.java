@@ -13,21 +13,39 @@ import java.util.UUID;
 
 public class FileUploaderUtils {
 
-    public static String savePhoto(File file) throws IOException {
-        Path toPath = Paths.get(System.getProperty("user.home") + "/static/images");
+    private static Path rootPath = null;
 
-        if (!Files.exists(toPath)) {
+    static {
+        rootPath = Paths.get(System.getProperty("user.home") + "/static/images");
+
+        if (!Files.exists(rootPath)) {
             System.out.println("SUCCESS-CREATE-IMAGE-DIRECTORY");
-            Files.createDirectories(toPath);
+            try {
+                Files.createDirectories(rootPath);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         } else {
             System.out.println("ALREADY-EXIST-IMAGE-DIRECTORY");
         }
+    }
+
+    public static Path getRootPath() {
+        return rootPath;
+    }
+
+    public static String loadImage(String filename) {
+        return FileUtils.getFile(rootPath.toAbsolutePath() + "/" + filename).toURI().toString();
+    }
+
+    public static String savePhoto(File file) {
+
 
         Optional<String> extension = getFileExtension(file.getName());
         String filename = UUID.randomUUID().toString();
 
-        String fileOriginal = toPath.toAbsolutePath() + "/" + file.getName();
-        String fileMoved = toPath.toAbsolutePath() + "/" + filename + "." + extension.get();
+//        String fileOriginal = rootPath.toAbsolutePath() + "/" + file.getName();
+        String fileMoved = rootPath.toAbsolutePath() + "/" + filename + "." + extension.get();
 
         try {
             FileUtils.copyFile(file,new File(fileMoved));
@@ -52,7 +70,7 @@ public class FileUploaderUtils {
 
 
 
-        return FileUtils.getFile(fileMoved).toURI().toString();
+        return filename + "." + extension.get();
     }
 
     private static Optional<String> getFileExtension(String fileName) {

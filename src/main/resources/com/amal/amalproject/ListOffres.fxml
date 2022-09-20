@@ -13,52 +13,58 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
+<!-- maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" -->
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@stylessabrine.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.amal.amalproject.controllers.ListOffresController">
-   <children>
-      <Pane layoutX="5.0" layoutY="17.0" prefHeight="567.0" prefWidth="790.0">
+<?import javafx.scene.layout.BorderPane?>
+<BorderPane stylesheets="@stylessabrine.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.amal.amalproject.controllers.ListOffresController">
+   <center>
+      <AnchorPane>
          <children>
-            <Button fx:id="btnpostuler" alignment="BOTTOM_LEFT" layoutX="514.0" layoutY="513.0" mnemonicParsing="false" onAction="#OnPostuler" prefHeight="31.0" prefWidth="119.0" text="Postuler" />
-            <Button fx:id="btnannuler" alignment="BASELINE_LEFT" layoutX="661.0" layoutY="511.0" mnemonicParsing="false" onAction="#OnAnnuler" prefHeight="31.0" prefWidth="111.0" text="Annuler" />
-            <TableView fx:id="table" layoutX="17.0" layoutY="160.0" prefHeight="325.0" prefWidth="755.0">
-              <columns>
-                <TableColumn fx:id="col_titre" minWidth="7.0" prefWidth="99.0" text="Titre" />
-                  <TableColumn fx:id="col_sec" prefWidth="82.0" text="Secteur" />
-                  <TableColumn fx:id="col_desc" prefWidth="208.0" text="Description" />
-                  <TableColumn fx:id="col_ref" prefWidth="235.0" text="Réference" />
-                  <TableColumn fx:id="col_date" prefWidth="130.0" text="Date expiration" />
-              </columns>
-            </TableView>
-            <ComboBox fx:id="combrech" layoutX="19.0" layoutY="103.0" onAction="#selectChoix" prefHeight="31.0" prefWidth="193.0" promptText="Recherche par" />
-            <TextField fx:id="txtrech" layoutX="259.0" layoutY="101.0" prefHeight="31.0" prefWidth="295.0" promptText="élément à rechercher" />
-            <Button fx:id="btnrech" layoutX="609.0" layoutY="101.0" mnemonicParsing="false" onAction="#OnRecherche" prefHeight="31.0" prefWidth="162.0" text="Recherche" />
-            <Button fx:id="btncandidature" alignment="BOTTOM_LEFT" layoutX="36.0" layoutY="513.0" mnemonicParsing="false" onAction="#OnCandidatures" prefHeight="31.0" prefWidth="148.0" text="Mes candidatures" />
+            <Pane layoutX="5.0" layoutY="17.0" prefHeight="567.0" prefWidth="790.0">
+               <children>
+                  <Button fx:id="btnpostuler" alignment="BOTTOM_LEFT" layoutX="514.0" layoutY="513.0" mnemonicParsing="false" onAction="#OnPostuler" prefHeight="31.0" prefWidth="119.0" text="Postuler" />
+                  <Button fx:id="btnannuler" alignment="BASELINE_LEFT" layoutX="661.0" layoutY="511.0" mnemonicParsing="false" onAction="#OnAnnuler" prefHeight="31.0" prefWidth="111.0" text="Annuler" />
+                  <TableView fx:id="table" layoutX="17.0" layoutY="160.0" prefHeight="325.0" prefWidth="755.0">
+                     <columns>
+                        <TableColumn fx:id="col_titre" minWidth="7.0" prefWidth="99.0" text="Titre" />
+                        <TableColumn fx:id="col_sec" prefWidth="82.0" text="Secteur" />
+                        <TableColumn fx:id="col_desc" prefWidth="208.0" text="Description" />
+                        <TableColumn fx:id="col_ref" prefWidth="235.0" text="Réference" />
+                        <TableColumn fx:id="col_date" prefWidth="130.0" text="Date expiration" />
+                     </columns>
+                  </TableView>
+                  <ComboBox fx:id="combrech" layoutX="19.0" layoutY="103.0" onAction="#selectChoix" prefHeight="31.0" prefWidth="193.0" promptText="Recherche par" />
+                  <TextField fx:id="txtrech" layoutX="259.0" layoutY="101.0" prefHeight="31.0" prefWidth="295.0" promptText="élément à rechercher" />
+                  <Button fx:id="btnrech" layoutX="609.0" layoutY="101.0" mnemonicParsing="false" onAction="#OnRecherche" prefHeight="31.0" prefWidth="162.0" text="Recherche" />
+                  <Button fx:id="btncandidature" alignment="BOTTOM_LEFT" layoutX="36.0" layoutY="513.0" mnemonicParsing="false" onAction="#OnCandidatures" prefHeight="31.0" prefWidth="148.0" text="Mes candidatures" />
+               </children>
+            </Pane>
+            <HBox layoutY="-1.0" prefHeight="90.0" prefWidth="800.0" style="-fx-background-color: #FFDAAF;">
+               <children>
+                  <ImageView fitHeight="80.0" fitWidth="97.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../imagessab/alvo.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets left="10.0" top="10.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <Label alignment="CENTER" prefHeight="90.0" prefWidth="315.0" text="Liste des offres disponibles" textFill="#a15467" textOverrun="WORD_ELLIPSIS">
+                     <font>
+                        <Font name="Arial Italic" size="24.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="80.0" fitWidth="86.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../imagessab/logo.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets left="320.0" top="5.0" />
+                     </HBox.margin>
+                  </ImageView>
+               </children>
+            </HBox>
          </children>
-      </Pane>
-      <HBox layoutY="-1.0" prefHeight="90.0" prefWidth="800.0" style="-fx-background-color: #FFDAAF;">
-         <children>
-            <ImageView fitHeight="80.0" fitWidth="97.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../imagessab/alvo.png" />
-               </image>
-               <HBox.margin>
-                  <Insets left="10.0" top="10.0" />
-               </HBox.margin>
-            </ImageView>
-            <Label alignment="CENTER" prefHeight="90.0" prefWidth="315.0" text="Liste des offres disponibles" textFill="#a15467" textOverrun="WORD_ELLIPSIS">
-               <font>
-                  <Font name="Arial Italic" size="24.0" />
-               </font>
-            </Label>
-            <ImageView fitHeight="80.0" fitWidth="86.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../imagessab/logo.png" />
-               </image>
-               <HBox.margin>
-                  <Insets left="320.0" top="5.0" />
-               </HBox.margin>
-            </ImageView>
-         </children>
-      </HBox>
-   </children>
-</AnchorPane>
+      </AnchorPane>
+   </center>
+</BorderPane>
