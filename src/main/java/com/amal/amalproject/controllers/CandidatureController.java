@@ -16,12 +16,14 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.stage.Stage;
 
 public class CandidatureController implements Initializable {
 
@@ -58,7 +60,10 @@ public class CandidatureController implements Initializable {
 	
     @FXML
     void OnAnnuler(ActionEvent event) throws IOException {
-    	Navigate.changerScene(event, "ListOffres.fxml", "Liste des offres");
+//    	Navigate.changerScene(event, "ListOffres.fxml", "Liste des offres");
+		Node source = (Node) event.getSource();
+		Stage stage = (Stage) source.getScene().getWindow();
+		stage.close();
     }
 
     @FXML
@@ -69,7 +74,10 @@ public class CandidatureController implements Initializable {
     	
      candModel.add(cand);
      
-     Navigate.changerScene(event, "ListOffres.fxml", "Liste des offres");
+//     Navigate.changerScene(event, "ListOffres.fxml", "Liste des offres");
+		 Node source = (Node) event.getSource();
+		 Stage stage = (Stage) source.getScene().getWindow();
+		 stage.close();
     }
     }
 
