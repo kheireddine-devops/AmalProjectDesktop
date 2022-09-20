@@ -11,12 +11,14 @@ import com.amal.amalproject.utils.Navigate;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 public class UpdateEmploiController {
 
@@ -46,7 +48,10 @@ public class UpdateEmploiController {
 
 	@FXML
 	void OnRetour(ActionEvent event) throws IOException {
-		Navigate.changerScene(event, "ListEmploi.fxml","List des offres");
+//		Navigate.changerScene(event, "ListEmploi.fxml","List des offres");
+		Node source = (Node) event.getSource();
+		Stage stage = (Stage) source.getScene().getWindow();
+		stage.close();
 	}
 	EmploiModel empModel = new EmploiModel();
 	private Emploi emp ;
@@ -60,7 +65,10 @@ public class UpdateEmploiController {
 			emp.setDescriptif_emploi(txtdesc.getText());
 			emp.setDate_expiration(java.sql.Date.valueOf(dateExp.getValue()));
 			empModel.update(emp);
-			Navigate.changerScene(event, "ListEmploi.fxml", "Lise des offres");
+//			Navigate.changerScene(event, "ListEmploi.fxml", "Lise des offres");
+			Node source = (Node) event.getSource();
+			Stage stage = (Stage) source.getScene().getWindow();
+			stage.close();
 		}
 	}
 

@@ -21,14 +21,15 @@ public class EmploiModel implements Iservice <Emploi>{
 	@Override
 	public void add(Emploi t) {
 		try {
-
-			PreparedStatement ps = connection.prepareStatement("INSERT INTO emplois(ID_EMPLOI,TITRE_EMPLOI,DESCRIPTIF_EMPLOI,SECTEUR,REF_EMPLOI,DATE_EXPIRATION,ID_COMPTE) VALUES (NULL,?,?,?,?,?,NUll)");
+			Compte compte = SessionUtils.getCurrentUser();
+			PreparedStatement ps = connection.prepareStatement("INSERT INTO emplois(ID_EMPLOI,TITRE_EMPLOI,DESCRIPTIF_EMPLOI,SECTEUR,REF_EMPLOI,DATE_EXPIRATION,ID_COMPTE) VALUES (NULL,?,?,?,?,?,?)");
 
 			ps.setString(1,t.getTitre_emploi());
 			ps.setString(2,t.getDescriptif_emploi());
 			ps.setString(3,t.getSecteur());
 			ps.setString(4, t.getRef_emploi());
 			ps.setDate(5, t.getDate_expiration());
+			ps.setInt(6,compte.getCompteId());
 
 
 
@@ -91,7 +92,9 @@ public class EmploiModel implements Iservice <Emploi>{
 	public ArrayList<Emploi> readAll() {
 		ArrayList<Emploi> emplois = new ArrayList<Emploi>();
 		try {
-			PreparedStatement ps = connection.prepareStatement("SELECT id_emploi,titre_emploi,descriptif_emploi,secteur,ref_emploi,date_expiration FROM emplois;");
+			Compte compte = SessionUtils.getCurrentUser();
+			PreparedStatement ps = connection.prepareStatement("SELECT id_emploi,titre_emploi,descriptif_emploi,secteur,ref_emploi,date_expiration FROM emplois WHERE id_compte = ?;");
+			ps.setInt(1,compte.getCompteId());
 			ResultSet resultSet = ps.executeQuery();
 
 			while (resultSet.next()) {

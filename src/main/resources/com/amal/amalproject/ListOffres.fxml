@@ -22,8 +22,8 @@
          <children>
             <Pane layoutX="5.0" layoutY="17.0" prefHeight="567.0" prefWidth="790.0">
                <children>
-                  <Button fx:id="btnpostuler" alignment="BOTTOM_LEFT" layoutX="514.0" layoutY="513.0" mnemonicParsing="false" onAction="#OnPostuler" prefHeight="31.0" prefWidth="119.0" text="Postuler" />
-                  <Button fx:id="btnannuler" alignment="BASELINE_LEFT" layoutX="661.0" layoutY="511.0" mnemonicParsing="false" onAction="#OnAnnuler" prefHeight="31.0" prefWidth="111.0" text="Annuler" />
+                  <Button fx:id="btnpostuler" alignment="BOTTOM_LEFT" layoutX="661.0" layoutY="511.0" mnemonicParsing="false" onAction="#OnPostuler" prefHeight="31.0" prefWidth="119.0" text="Postuler" />
+                  <Button fx:id="btnannuler" alignment="BASELINE_LEFT"  layoutX="514.0" layoutY="513.0"  mnemonicParsing="false" onAction="#OnAnnuler" prefHeight="31.0"  style="visibility: hidden;" prefWidth="111.0" text="Annuler" />
                   <TableView fx:id="table" layoutX="17.0" layoutY="160.0" prefHeight="325.0" prefWidth="755.0">
                      <columns>
                         <TableColumn fx:id="col_titre" minWidth="7.0" prefWidth="99.0" text="Titre" />

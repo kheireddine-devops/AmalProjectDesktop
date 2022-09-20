@@ -89,6 +89,10 @@ public class UserHomeController extends SharedController implements Initializabl
                 System.out.println(MenuEnum.MENU_GESTION_AIDE_VIEW);
                 this.viewsID.setContent(MainApplication.includeView("gestion-aide-view"));
                 break;
+            case MENU_LIST_EMPLOI_VIEW:
+                System.out.println(MenuEnum.MENU_LIST_EMPLOI_VIEW);
+                this.viewsID.setContent(MainApplication.includeView("ListEmploi"));
+                break;
             default:
                 System.out.println("MENU : PROBLEM");
         }
@@ -101,7 +105,7 @@ public class UserHomeController extends SharedController implements Initializabl
 
         if(compte == null) {
             /* admin benevole benificier doctor organization */
-            compte = userModel.login("benevole","azeAZE123*");
+            compte = userModel.login("organization","azeAZE123*");
             SessionUtils.addCurrentUser(compte);
         }
 
@@ -142,7 +146,7 @@ public class UserHomeController extends SharedController implements Initializabl
                 case ROLE_BENEFICIER:
                     menuItemButtons.addAll( List.of(
                             new MenuItemButton("Gestion Aides",MenuEnum.MENU_GESTION_AIDE_VIEW.toString()),
-                            new MenuItemButton("Offres Emploi",MenuEnum.MENU_OFFRES_EMPLOI_VIEW.toString()),
+                            new MenuItemButton("Offres",MenuEnum.MENU_OFFRES_EMPLOI_VIEW.toString()),
                             new MenuItemButton("Profile Management",MenuEnum.MENU_EDIT_USER_VIEW.toString())
                     ));
                     break;
@@ -162,6 +166,7 @@ public class UserHomeController extends SharedController implements Initializabl
                     break;
                 case ROLE_ORGANIZATION:
                     menuItemButtons.addAll( List.of(
+                            new MenuItemButton("Offres des Emplois",MenuEnum.MENU_LIST_EMPLOI_VIEW.toString()),
                             new MenuItemButton("Profile Management",MenuEnum.MENU_EDIT_USER_VIEW.toString())
                     ));
                     break;

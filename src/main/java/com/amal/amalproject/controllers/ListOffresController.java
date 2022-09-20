@@ -110,8 +110,8 @@ public class ListOffresController extends SharedController implements Initializa
     }
 
     @FXML
-    void OnCandidatures(ActionEvent event) {
-
+    void OnCandidatures(ActionEvent event) throws IOException {
+    	Navigate.changerScene(event, "ListCandidatures.fxml", "Mes candidatures");
     }
 
     @FXML
@@ -128,10 +128,6 @@ public class ListOffresController extends SharedController implements Initializa
 //        FXMLLoader loader= MainApplication.loadSubFXML("Candidature");
 //        CandidatureController controller=loader.getController();
 //        controller.getFields(table.getSelectionModel().getSelectedItem());
-
-        Compte compte = SessionUtils.getCurrentUser();
-        compte.getCompteId();
-        System.out.println(compte);
 
     	
     }
