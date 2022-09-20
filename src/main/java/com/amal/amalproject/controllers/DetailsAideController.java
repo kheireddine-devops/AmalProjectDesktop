@@ -14,6 +14,7 @@ import com.amal.amalproject.entities.User;
 import com.amal.amalproject.utils.DBConnection;
 
 import com.amal.amalproject.utils.SessionUtils;
+import com.amal.amalproject.utils.TwilioSMSUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -96,6 +97,8 @@ public class DetailsAideController implements Initializable {
 	            	alert.setHeaderText("Information");
 	            	alert.setContentText("Commentaire ajoutée avec succés!");
 	            	alert.showAndWait();
+
+				 TwilioSMSUtils.sendMessage("+216"+telephone,com);
 	            } else {
 	            	Alert alert = new Alert(AlertType.INFORMATION);
 	            	alert.setTitle("Ajout Commentaire!");

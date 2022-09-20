@@ -101,7 +101,7 @@ public class UserHomeController extends SharedController implements Initializabl
 
         if(compte == null) {
             /* admin benevole benificier doctor organization */
-            compte = userModel.login("benificier","azeAZE123*");
+            compte = userModel.login("benevole","azeAZE123*");
             SessionUtils.addCurrentUser(compte);
         }
 
