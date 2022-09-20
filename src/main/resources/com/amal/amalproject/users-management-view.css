@@ -1,0 +1,8 @@
+.users-management-view {
+    -fx-background-color: yellowgreen;
+}
+.display-users-view {
+    -fx-pref-width: 500px;
+    -fx-background-color: #FFFFFF;
+    -fx-padding: 0.5em;
+}
