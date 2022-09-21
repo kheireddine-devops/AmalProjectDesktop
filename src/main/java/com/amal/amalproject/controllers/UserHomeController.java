@@ -109,6 +109,14 @@ public class UserHomeController extends SharedController implements Initializabl
                 System.out.println(MenuEnum.MENU_BENEFECIER_TUTORIEL);
                 this.viewsID.setContent(MainApplication.includeView("BeneficiaireTutoriel"));
                 break;
+            case MENU_PRODUIT_VIEW:
+                System.out.println(MenuEnum.MENU_PRODUIT_VIEW);
+                this.viewsID.setContent(MainApplication.includeView("Produit"));
+                break;
+            case MENU_BOUTIQUE_VIEW:
+                System.out.println(MenuEnum.MENU_BOUTIQUE_VIEW);
+                this.viewsID.setContent(MainApplication.includeView("Boutique"));
+                break;
             default:
                 System.out.println("MENU : PROBLEM");
         }
@@ -165,6 +173,7 @@ public class UserHomeController extends SharedController implements Initializabl
                             new MenuItemButton("Offres",MenuEnum.MENU_OFFRES_EMPLOI_VIEW.toString()),
                             new MenuItemButton("Publication formation",MenuEnum.MENU_BENEFICIER_GESTION_PUBLICATION_FORMATION.toString()),
                             new MenuItemButton("Tutoriels",MenuEnum.MENU_BENEFECIER_TUTORIEL.toString()),
+                            new MenuItemButton("Gestion Produit",MenuEnum.MENU_PRODUIT_VIEW.toString()),
                             new MenuItemButton("Profile Management",MenuEnum.MENU_EDIT_USER_VIEW.toString())
                     ));
                     break;
@@ -173,7 +182,8 @@ public class UserHomeController extends SharedController implements Initializabl
                             new MenuItemButton("Rendez-vous",MenuEnum.MENU_RENDEZ_VOUS_VIEW.toString()),
                             new MenuItemButton("Aides Management",MenuEnum.MENU_SHOW_AIDES_VIEW.toString()),
                             new MenuItemButton("Publication formation",MenuEnum.MENU_BENEVOLE_GESTION_PUBLICATION_FORMATION.toString()),
-                        new MenuItemButton("Tutoriels",MenuEnum.MENU_BENEVOLE_GESTION_TUTORIEL.toString()),
+                            new MenuItemButton("Tutoriels",MenuEnum.MENU_BENEVOLE_GESTION_TUTORIEL.toString()),
+                            new MenuItemButton("Store",MenuEnum.MENU_BOUTIQUE_VIEW.toString()),
                             new MenuItemButton("Profile Management",MenuEnum.MENU_EDIT_USER_VIEW.toString())
                     ));
                     break;
@@ -181,12 +191,16 @@ public class UserHomeController extends SharedController implements Initializabl
                     menuItemButtons.addAll( List.of(
                             new MenuItemButton("Rendez-vous",MenuEnum.MENU_RENDEZ_VOUS_VIEW.toString()),
                             new MenuItemButton("Aides Management",MenuEnum.MENU_SHOW_AIDES_VIEW.toString()),
+                            new MenuItemButton("Store",MenuEnum.MENU_BOUTIQUE_VIEW.toString()),
+                            new MenuItemButton("Rendez-vous Management",MenuEnum.MENU_RENDEZ_VOUS_VIEW.toString()),
                             new MenuItemButton("Profile Management",MenuEnum.MENU_EDIT_USER_VIEW.toString())
+
                     ));
                     break;
                 case ROLE_ORGANIZATION:
                     menuItemButtons.addAll( List.of(
                             new MenuItemButton("Offres des Emplois",MenuEnum.MENU_LIST_EMPLOI_VIEW.toString()),
+                            new MenuItemButton("Store",MenuEnum.MENU_BOUTIQUE_VIEW.toString()),
                             new MenuItemButton("Profile Management",MenuEnum.MENU_EDIT_USER_VIEW.toString())
                     ));
                     break;
@@ -194,8 +208,8 @@ public class UserHomeController extends SharedController implements Initializabl
                     menuItemButtons.addAll( List.of(
                             new MenuItemButton("Dashboard",MenuEnum.MENU_ADMIN_DASHBOARD_VIEW.toString()),
                             new MenuItemButton("Users Management",MenuEnum.MENU_USERS_MANAGEMENT_VIEW.toString()),
-                            new MenuItemButton("Rendez-vous Management",MenuEnum.MENU_RENDEZ_VOUS_VIEW.toString()),
                             new MenuItemButton("Aides Management",MenuEnum.MENU_SHOW_AIDES_VIEW.toString()),
+                            new MenuItemButton("Store",MenuEnum.MENU_BOUTIQUE_VIEW.toString()),
                             new MenuItemButton("Profile Management",MenuEnum.MENU_EDIT_USER_VIEW.toString())
                     ));
                     try {

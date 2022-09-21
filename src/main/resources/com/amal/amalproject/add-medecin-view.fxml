@@ -108,7 +108,7 @@
                 <Label text="CIN *" GridPane.columnIndex="2" GridPane.rowIndex="8" />
                 <TextField fx:id="cinID" promptText="Tapez votre numéro C.I.N" GridPane.columnIndex="3" GridPane.rowIndex="8" />
 
-                <Label text="Matricule" GridPane.columnIndex="2" GridPane.rowIndex="10" />
+                <Label text="Matricule *" GridPane.columnIndex="2" GridPane.rowIndex="10" />
                 <TextField fx:id="matriculeID" promptText="Tapez votre assurance" GridPane.columnIndex="3" GridPane.rowIndex="10" />
 
                 <Label text="Assurance *" GridPane.columnIndex="2" GridPane.rowIndex="12" />

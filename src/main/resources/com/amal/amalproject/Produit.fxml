@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.amal.amalproject.controllers.ProduitController">
+   <children>
+      <Pane prefHeight="59.0" prefWidth="1002.0" style="-fx-background-color: #7294ac;">
+         <children>
+            <Label layoutX="454.0" layoutY="12.0" prefHeight="34.0" prefWidth="330.0" text="NomUser &amp; PrenomUser" textAlignment="CENTER" textFill="WHITE">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <font>
+                  <Font name="Arial Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="59.0" layoutY="6.0" prefHeight="46.0" prefWidth="224.0" text="Produit" textAlignment="CENTER" textFill="WHITE">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <font>
+                  <Font name="Arial Bold" size="18.0" />
+               </font>
+            </Label>
+            <!--<FontAwesomeIcon fill="WHITE" iconName="SEARCH" layoutX="415.0" layoutY="28.0" />-->
+         </children>
+      </Pane>
+      <ImageView fx:id="imageProduit" fitHeight="332.0" fitWidth="328.0" layoutX="575.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="575.0" AnchorPane.rightAnchor="99.0" AnchorPane.topAnchor="73.0">
+         <image>
+            <Image url="@../../../../../../../../Java/AmalProject/src/main/resources/image/P1.jpg" />
+         </image></ImageView>
+      <TextArea fx:id="descriptionProduit" layoutX="454.0" layoutY="351.0" prefHeight="107.0" prefWidth="451.0" AnchorPane.bottomAnchor="342.0" AnchorPane.leftAnchor="52.0" AnchorPane.rightAnchor="501.0" AnchorPane.topAnchor="351.0" />
+      <Label layoutX="328.0" layoutY="71.0" prefHeight="34.0" prefWidth="451.0" text="Nom de Produit" AnchorPane.leftAnchor="52.0">
+         <font>
+            <Font name="Arial Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="329.0" layoutY="152.0" prefHeight="35.0" prefWidth="449.0" text="Prix Produit" AnchorPane.leftAnchor="52.0">
+         <font>
+            <Font name="Arial Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="329.0" layoutY="233.0" prefHeight="35.0" prefWidth="449.0" text="Contact-Vendeur" AnchorPane.leftAnchor="52.0">
+         <font>
+            <Font name="Arial Bold" size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="numVendeur" layoutX="453.0" layoutY="271.0" prefHeight="39.0" prefWidth="452.0" AnchorPane.leftAnchor="52.0" />
+      <Label layoutX="327.0" layoutY="313.0" prefHeight="34.0" prefWidth="450.0" text="Descriptif" AnchorPane.leftAnchor="52.0">
+         <font>
+            <Font name="Arial Bold" size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="prixProduit" layoutX="453.0" layoutY="191.0" prefHeight="39.0" prefWidth="452.0" AnchorPane.leftAnchor="52.0" />
+      <TextField fx:id="libeleProduit" layoutX="453.0" layoutY="109.0" prefHeight="39.0" prefWidth="452.0" AnchorPane.leftAnchor="52.0" />
+      <Button fx:id="Importe" layoutX="52.0" layoutY="418.0" mnemonicParsing="false" onAction="#ImporteButtonAction" onMouseClicked="#ImporteButtonAction" prefHeight="39.0" prefWidth="363.0" text="Importer" AnchorPane.bottomAnchor="343.0" AnchorPane.rightAnchor="100.0">
+         <font>
+            <Font size="16.0" />
+         </font></Button>
+      <TableView fx:id="tableP" layoutX="53.0" layoutY="469.0" onMouseClicked="#clickTable" prefHeight="264.0" prefWidth="851.0">
+         <columns>
+            <TableColumn fx:id="idProduitP" prefWidth="75.0" text="Id" />
+
+            <TableColumn fx:id="libeleProduitP" prefWidth="104.800048828125" text="Libele" />
+            <TableColumn fx:id="prixP" prefWidth="138.933349609375" text="Prix" />
+            <TableColumn fx:id="descriptionP" prefWidth="202.66665649414062" text="Description" />
+            <TableColumn fx:id="imgUrlP" prefWidth="176.26669311523438" text="ImgUrl" />
+            <TableColumn fx:id="contactVP" prefWidth="152.0" text="Contact_Vendeur" />
+         </columns>
+      </TableView>
+      <Button fx:id="btnAdd" layoutX="200.0" layoutY="738.0" mnemonicParsing="false" onAction="#insert" prefHeight="40.0" prefWidth="200.0" text="Ajouter" textFill="#7294ac" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="192.0">
+         <font>
+            <Font name="Arial Bold" size="21.0" />
+         </font></Button>
+      <Button fx:id="btnUpdateP" layoutX="412.0" layoutY="739.0" mnemonicParsing="false" onAction="#update" prefHeight="40.0" prefWidth="200.0" text="Modifier" textFill="#7294ac">
+         <font>
+            <Font name="Arial Bold" size="21.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnDeleteP" layoutX="631.0" layoutY="740.0" mnemonicParsing="false" onAction="#delete" prefHeight="40.0" prefWidth="200.0" text="Supprimer" textFill="#7294ac">
+         <font>
+            <Font name="Arial Bold" size="21.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

@@ -39,7 +39,8 @@ public class MailUtils {
     public static boolean sendHtmlMail(String to, String subject, String content)  {
         try{
             Message message = new MimeMessage(getSession());
-            message.setFrom(new InternetAddress("amal@contact.com"));
+            message.setFrom(new InternetAddress(USERNAME
+            ));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
             message.setSubject(subject);
 

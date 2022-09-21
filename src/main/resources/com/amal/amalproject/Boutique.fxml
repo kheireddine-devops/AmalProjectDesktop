@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.amal.amalproject.controllers.BoutiqueController">
+    <children>
+        <BorderPane layoutY="-2.0" prefHeight="802.0" prefWidth="999.0">
+            <left>
+                <VBox prefHeight="765.0" prefWidth="295.0" styleClass="right-bar" stylesheets="@../../../values/style.css" BorderPane.alignment="CENTER">
+                    <children>
+                        <HBox prefHeight="61.0" prefWidth="206.0">
+                            <children>
+                                <Label alignment="CENTER" prefHeight="71.0" prefWidth="109.0" style="-fx-background-color: transparent;" text="Welcome" textAlignment="CENTER" textFill="#878787">
+                                    <HBox.margin>
+                                        <Insets left="20.0" />
+                                    </HBox.margin>
+                                    <font>
+                                        <Font name="Monotype Corsiva" size="30.0" />
+                                    </font>
+                                    <padding>
+                                        <Insets bottom="25.0" top="8.0" />
+                                    </padding>
+                                </Label>
+                                <Label fx:id="fullname" prefHeight="71.0" prefWidth="193.0" text="FirstName &amp; LastName" textFill="#878787">
+                                    <padding>
+                                        <Insets bottom="20.0" top="12.0" />
+                                    </padding>
+                                    <font>
+                                        <Font name="Arial Bold" size="14.0" />
+                                    </font>
+                                    <HBox.margin>
+                                        <Insets left="10.0" />
+                                    </HBox.margin>
+                                </Label>
+                            </children>
+                        </HBox>
+                        <HBox prefHeight="45.0" prefWidth="275.0" stylesheets="@../../../values/style.css">
+                            <children>
+                                <TextField id="chercherProduit" fx:id="txtsearch" accessibleRole="IMAGE_VIEW" prefHeight="40.0" prefWidth="180.0" promptText="Chercher..." style="-fx-background-color: transparent;" styleClass="transparent" stylesheets="@../../../values/style.css">
+                                    <HBox.margin>
+                                        <Insets bottom="10.0" left="15.0" top="10.0" />
+                                    </HBox.margin>
+                                    <font>
+                                        <Font name="Arial Italic" size="16.0" />
+                                    </font>
+                                </TextField>
+                                <Button fx:id="searchbtn" alignment="CENTER" mnemonicParsing="false" onAction="#Search" prefHeight="40.0" prefWidth="67.0" styleClass="search-button" stylesheets="@../../../values/style.css" text="Search" textFill="WHITE">
+                                    <HBox.margin>
+                                        <Insets bottom="10.0" top="10.0" />
+                                    </HBox.margin>
+                                    <font>
+                                        <Font size="15.0" />
+                                    </font>
+                                </Button>
+                            </children>
+                            <VBox.margin>
+                                <Insets bottom="-1.0" left="16.0" right="13.0" />
+                            </VBox.margin>
+                            <styleClass>
+                                <String fx:value="search-box" />
+                                <String fx:value="shadow" />
+                            </styleClass>
+                        </HBox>
+                        <VBox alignment="CENTER" prefHeight="636.0" prefWidth="281.0" styleClass="chosen-produit" stylesheets="@../../../values/style.css">
+                            <VBox.margin>
+                                <Insets left="15.0" right="15.0" />
+                            </VBox.margin>
+                            <children>
+                                <HBox prefHeight="64.0" prefWidth="200.0" style="-fx-background-color: transparent;">
+                                    <children>
+                                        <Label alignment="TOP_LEFT" prefHeight="54.0" prefWidth="133.0" style="-fx-background-color: transparent;" text="Produit" textFill="WHITE">
+                                            <font>
+                                                <Font name="Cambria Bold" size="30.0" />
+                                            </font>
+                                            <opaqueInsets>
+                                                <Insets />
+                                            </opaqueInsets>
+                                            <HBox.margin>
+                                                <Insets left="10.0" right="21.0" />
+                                            </HBox.margin>
+                                            <padding>
+                                                <Insets top="6.0" />
+                                            </padding>
+                                        </Label>
+                                        <Label id="nomProduit" alignment="TOP_LEFT" prefHeight="54.0" prefWidth="81.0" style="-fx-background-color: transparent;" text="\$ Price" textFill="WHITE">
+                                            <font>
+                                                <Font name="Cambria Bold" size="25.0" />
+                                            </font>
+                                            <opaqueInsets>
+                                                <Insets />
+                                            </opaqueInsets>
+                                            <HBox.margin>
+                                                <Insets right="10.0" />
+                                            </HBox.margin>
+                                            <padding>
+                                                <Insets top="10.0" />
+                                            </padding>
+                                        </Label>
+                                    </children>
+                                    <VBox.margin>
+                                        <Insets left="15.0" right="15.0" top="10.0" />
+                                    </VBox.margin>
+                                </HBox>
+                                <ImageView id="imgproduit" fitHeight="300.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../../image/P1.jpg" />
+                                    </image>
+                                    <VBox.margin>
+                                        <Insets left="15.0" right="15.0" />
+                                    </VBox.margin>
+                                </ImageView>
+                                <VBox prefHeight="242.0" prefWidth="265.0">
+                                    <children>
+                                        <Label id="nomProduit" prefHeight="44.0" prefWidth="166.0" style="-fx-background-color: transparent;" text="Description :" textFill="WHITE">
+                                            <font>
+                                                <Font name="Cambria Bold" size="19.0" />
+                                            </font>
+                                            <opaqueInsets>
+                                                <Insets />
+                                            </opaqueInsets>
+                                            <VBox.margin>
+                                                <Insets left="15.0" />
+                                            </VBox.margin>
+                                        </Label>
+                                        <TextArea id="DescriptifProduit" accessibleRole="TEXT_FIELD" prefHeight="160.0" prefWidth="255.0" promptText="Le produit est un chef d'oeuvre construite with Love..." text="Le produit est un chef &#10;d'oeuvre construite with&#10; Love ... ">
+                                            <font>
+                                                <Font name="Cambria Italic" size="18.0" />
+                                            </font>
+                                            <VBox.margin>
+                                                <Insets bottom="5.0" left="15.0" right="15.0" />
+                                            </VBox.margin>
+                                        </TextArea>
+                                        <Button id="CommanderBtn" alignment="CENTER" mnemonicParsing="false" prefHeight="44.0" prefWidth="250.0" style="-fx-background-color: white; -fx-background-radius: 100;" text="NumVendeur" textAlignment="CENTER" textFill="#c097cb">
+                                            <font>
+                                                <Font name="Arial Bold" size="20.0" />
+                                            </font>
+                                            <VBox.margin>
+                                                <Insets bottom="5.0" left="15.0" />
+                                            </VBox.margin>
+                                            <padding>
+                                                <Insets bottom="10.0" top="10.0" />
+                                            </padding>
+                                            <opaqueInsets>
+                                                <Insets />
+                                            </opaqueInsets>
+                                        </Button>
+                                    </children>
+                                </VBox>
+                            </children>
+                            <padding>
+                                <Insets top="-11.0" />
+                            </padding>
+                        </VBox>
+                    </children>
+                </VBox>
+
+            </left>
+            <center>
+                <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <HBox prefHeight="61.0" prefWidth="682.0">
+                            <VBox.margin>
+                                <Insets left="20.0" right="20.0" top="3.0" />
+                            </VBox.margin>
+                            <padding>
+                                <Insets top="3.0" />
+                            </padding>
+                            <children>
+                                <Label prefHeight="50.0" prefWidth="389.0" style="-fx-background-color: transparent;" text="AmalHome">
+                                    <font>
+                                        <Font name="Bodoni MT" size="18.0" />
+                                    </font>
+                                    <opaqueInsets>
+                                        <Insets />
+                                    </opaqueInsets>
+                                    <padding>
+                                        <Insets left="20.0" />
+                                    </padding>
+                                </Label>
+                                <Label fx:id="boutique" alignment="CENTER" prefHeight="46.0" prefWidth="235.0" text="Boutique Produit " textAlignment="CENTER">
+                                    <font>
+                                        <Font name="Cambria" size="18.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="755.0" prefWidth="688.0" styleClass="transparent" stylesheets="@../../../values/style.css">
+                            <children>
+                                <ScrollPane fx:id="scroll" prefHeight="738.0" prefWidth="671.0" styleClass="transparent" stylesheets="@../../../values/style.css">
+                                    <HBox.margin>
+                                        <Insets top="10.0" />
+                                    </HBox.margin>
+                                    <content>
+                                        <TableView fx:id="tablePB" prefHeight="710.0" prefWidth="671.0" stylesheets="@../../../values/style.css">
+                                            <columns>
+                                                <TableColumn fx:id="idProduitB" prefWidth="44.79995709657669" text="Id" />
+                                                <TableColumn fx:id="libeleProduitB" prefWidth="90.13330078125" text="Libele" />
+                                                <TableColumn fx:id="prixProduitB" prefWidth="98.66671752929688" text="Prix_Produit" />
+                                                <TableColumn fx:id="descriptifProduitB" prefWidth="127.7332763671875" text="Descriptif" />
+                                                <TableColumn fx:id="imageProduitB" prefWidth="105.066650390625" text="Img Url" />
+                                                <TableColumn fx:id="idBenificierB" prefWidth="92.7999267578125" text="id_Benificier" />
+                                                <TableColumn fx:id="numVendeurB" prefWidth="109.60015869140625" text="NumVendeur" />
+                                            </columns>
+                                            <opaqueInsets>
+                                                <Insets />
+                                            </opaqueInsets>
+                                        </TableView>
+                                    </content>
+                                </ScrollPane>
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+            </center>
+        </BorderPane>
+    </children>
+</AnchorPane>
