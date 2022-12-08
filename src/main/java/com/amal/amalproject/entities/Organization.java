@@ -6,12 +6,8 @@ public class Organization {
     private String matriculeFiscale;
     private String nom;
     private String formJuridique;
-    private String numPhone;
-    private String email;
     private String adresse;
     private Compte compte;
-
-    private String photo;
 
 
     /* Start Section Constructors */
@@ -52,22 +48,6 @@ public class Organization {
         this.formJuridique = formJuridique;
     }
 
-    public String getNumPhone() {
-        return numPhone;
-    }
-
-    public void setNumPhone(String numPhone) {
-        this.numPhone = numPhone;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getAdresse() {
         return adresse;
     }
@@ -83,14 +63,6 @@ public class Organization {
     public void setCompte(Compte compte) {
         this.compte = compte;
     }
-
-    public String getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(String photo) {
-        this.photo = photo;
-    }
     /* End Section Getters & Setters */
 
 
@@ -103,8 +75,6 @@ public class Organization {
                 "matriculeFiscale='" + matriculeFiscale + '\'' +
                 ", nom='" + nom + '\'' +
                 ", formJuridique='" + formJuridique + '\'' +
-                ", numPhone='" + numPhone + '\'' +
-                ", email='" + email + '\'' +
                 ", adresse='" + adresse + '\'' +
                 ", compte=" + compte +
                 '}';

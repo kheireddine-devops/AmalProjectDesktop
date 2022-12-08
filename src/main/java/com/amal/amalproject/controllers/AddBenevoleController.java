@@ -80,12 +80,15 @@ public class AddBenevoleController extends SharedController implements Initializ
         if (isValidBenevole()) {
             /******************************** Start Entity Compte ********************************/
             Compte compte = new Compte();
-            compte.setLogin(loginID.getText());
+            compte.setUsername(loginID.getText());
             compte.setPassword(passwordID.getText());
             compte.setRole(RoleEnum.ROLE_BENEVOLE.toString());
             compte.setStatus(AccountStatus.STATUS_ACTIVE_NOT_VERIFIED_PHONE_NOT_VERIFIED_MAIL.toString());
             compte.setTempValidateMail(RandomStringUtils.random(6, false, true));
             compte.setTempValidatePhone(RandomStringUtils.random(6, false, true));
+            compte.setEmail(emailID.getText());
+            compte.setPhone(telephoneID.getText());
+            compte.setPhoto("DEFAULT-URL");
             System.out.println(compte);
             /******************************** End Entity Compte ********************************/
             /******************************** Start Entity Benevole ********************************/
@@ -93,12 +96,9 @@ public class AddBenevoleController extends SharedController implements Initializ
             Benevole benevole = new Benevole();
             benevole.setNom(firstNameID.getText());
             benevole.setPrenom(lastNameID.getText());
-            benevole.setEmail(emailID.getText());
             benevole.setDateNaissance(dateNaissanceID.getValue());
-            benevole.setTelephone(telephoneID.getText());
             benevole.setAdresse(adresseID.getText());
             benevole.setSexe(((RadioButton)sexeGroupID.getSelectedToggle()).getText());
-            benevole.setPhoto("DEFAULT-URL");
             benevole.setCompte(compte);
             benevole.setProfession(professionID.getText());
 
@@ -124,10 +124,10 @@ public class AddBenevoleController extends SharedController implements Initializ
                         "\n" +
                         "        <p>À bientôt,<br>L'équipe AmalApplication</p>\n" +
                         "    </div>";
-                MailUtils.sendHtmlMail(benevole.getEmail(),subjectMail,htmlMail);
+                MailUtils.sendHtmlMail(compte.getEmail(),subjectMail,htmlMail);
                 System.out.println("SUCCESS-SEND-MAIL");
                 String smsMessage = "Bonjour "+benevole.getNom()+"\nVotre code de validation : "+benevole.getCompte().getTempValidatePhone();
-                TwilioSMSUtils.sendMessage("+216" + benevole.getTelephone(),smsMessage);
+                TwilioSMSUtils.sendMessage("+216" + compte.getPhone(),smsMessage);
                 System.out.println("SUCCESS-SEND-SMS");
 
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, "Vous avez terminé avec succès le processus d'inscription\ncliquer sur ok puis s'authentifiez par votre login et mot de passe", ButtonType.OK);
@@ -313,10 +313,22 @@ public class AddBenevoleController extends SharedController implements Initializ
 
     }
 
+    void initBenevole() {
+        loginID.setText("kheireddine");
+        passwordID.setText("azeAZE123*");
+        firstNameID.setText("kheireddine");
+        lastNameID.setText("mechergui");
+        emailID.setText("kheireddine.mechergui@gmail.com");
+        dateNaissanceID.setValue(LocalDate.now());
+        telephoneID.setText("25666888");
+        adresseID.setText("Beja");
+        professionID.setText("Développeur Web");
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("AddBenificierController.initialize()");
+        initBenevole();
     }
 
     public void onRetourClick(ActionEvent actionEvent) {

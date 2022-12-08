@@ -36,12 +36,15 @@ public interface IUserModel {
     Organization editOrganization(int organizationId,Organization updatedOrganization);
     Map<String,Integer> getUserNumbersByRole();
     boolean changePassword(int compteId,String newPassword);
-    String editUserProfilePhoto(int userId,String photo);
-    String editOrganizationProfilePhoto(int organizationId,String photo);
+    String editAccountPhoto(int userId,String photo);
 
     int getUserIdByEmail(String email);
 
     boolean forgotPassword(int compteId, String passwordGenerated);
 
     boolean changeAccountStatus(int compteId,AccountStatus status);
+
+    boolean existsBeneficierByCarteHandicapNumber(String carteHandicapNumber);
+
+    boolean existsOrganizationByMatricule(String matricule);
 }

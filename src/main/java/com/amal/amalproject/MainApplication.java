@@ -21,8 +21,8 @@ public class MainApplication extends Application {
 
 
         scene = new Scene(new BorderPane(), 1000, 800);
-        loadView("login-view");
-
+//        loadView("choose-inscription-view");
+        loadView("user-home-view");
 
         stage.setTitle("Amal Application");
         stage.setScene(scene);

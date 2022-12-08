@@ -4,19 +4,17 @@ import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
+import java.nio.file.*;
 import java.util.Optional;
 import java.util.UUID;
 
 public class FileUploaderUtils {
 
     private static Path rootPath = null;
+    Path path = FileSystems.getDefault().getPath(".");
 
     static {
-        rootPath = Paths.get(System.getProperty("user.home") + "/static/images");
+        rootPath = Paths.get(Path.of("").toAbsolutePath().getParent() + "/AmalProjectServer/public/uploads/images/users");
 
         if (!Files.exists(rootPath)) {
             System.out.println("SUCCESS-CREATE-IMAGE-DIRECTORY");

@@ -19,7 +19,7 @@ public class UserModel implements IUserModel {
 		Compte compte = null;
 		try {
 			System.out.println("SELECT * FROM `compte` WHERE `login` = ? AND `password` = ?;");
-			PreparedStatement ps = connection.prepareStatement("SELECT C.id_compte,C.login,C.password,C.role,C.status FROM `compte` C WHERE C.login = ? AND ((C.password = ?) OR (C.temp_reset_password = ?)) AND C.status <> 'STATUS_BANNED' AND C.status <> 'STATUS_DEACTIVATE';");
+			PreparedStatement ps = connection.prepareStatement("SELECT C.id_compte,C.username,C.password,C.role,C.status,C.phone,C.email,C.photo FROM `compte` C WHERE C.username = ? AND ((C.password = ?) OR (C.temp_reset_password = ?)) AND C.status <> 'STATUS_BANNED' AND C.status <> 'STATUS_DEACTIVATE';");
 			ps.setString(1,username);
 			ps.setString(2,DigestUtils.sha256Hex(password));
 			ps.setString(3,DigestUtils.sha256Hex(password));
@@ -32,10 +32,13 @@ public class UserModel implements IUserModel {
 				compte = new Compte();
 
 				compte.setCompteId(resultSet.getInt("id_compte"));
-				compte.setLogin(resultSet.getString("login"));
+				compte.setUsername(resultSet.getString("username"));
 				compte.setPassword(resultSet.getString("password"));
 				compte.setRole(resultSet.getString("role"));
 				compte.setStatus(resultSet.getString("status"));
+				compte.setEmail(resultSet.getString("email"));
+				compte.setPhone(resultSet.getString("phone"));
+				compte.setPhoto(resultSet.getString("photo"));
 
 				System.out.println("SUCCESS-GET-COMPTE-BY-LOGIN");
 
@@ -54,13 +57,16 @@ public class UserModel implements IUserModel {
 	@Override
 	public Compte addCompte(Compte compte) {
 		try {
-			PreparedStatement ps = connection.prepareStatement("INSERT INTO `compte` (`id_compte`, `login`, `password`, `role`, `status`,`temp_validate_mail`,`temp_validate_phone`) VALUES (NULL, ?, ?, ?, ?,?,?);");
-			ps.setString(1,compte.getLogin());
+			PreparedStatement ps = connection.prepareStatement("INSERT INTO `compte` (`id_compte`, `username`, `password`, `role`, `status`,`temp_validate_mail`,`temp_validate_phone`,`email`,`phone`,`photo`) VALUES (NULL, ?, ?, ?, ?,?,?,?,?,?);");
+			ps.setString(1,compte.getUsername());
 			ps.setString(2, DigestUtils.sha256Hex(compte.getPassword()));
 			ps.setString(3,compte.getRole());
 			ps.setString(4,compte.getStatus());
 			ps.setString(5,compte.getTempValidateMail());
 			ps.setString(6,compte.getTempValidateMail());
+			ps.setString(7,compte.getEmail());
+			ps.setString(8,compte.getPhone());
+			ps.setString(9,compte.getPhoto());
 
 
 			int n = ps.executeUpdate();
@@ -84,7 +90,7 @@ public class UserModel implements IUserModel {
 		Compte compte = null;
 		try {
 
-			PreparedStatement ps = connection.prepareStatement("SELECT * FROM `compte` WHERE `login` = ?");
+			PreparedStatement ps = connection.prepareStatement("SELECT * FROM `compte` WHERE `username` = ?");
 			ps.setString(1,login);
 
 			ResultSet resultSet = ps.executeQuery();
@@ -93,10 +99,13 @@ public class UserModel implements IUserModel {
 				compte = new Compte();
 
 				compte.setCompteId(resultSet.getInt("id_compte"));
-				compte.setLogin(resultSet.getString("login"));
+				compte.setUsername(resultSet.getString("username"));
 				compte.setPassword(resultSet.getString("password"));
 				compte.setRole(resultSet.getString("role"));
 				compte.setStatus(resultSet.getString("status"));
+				compte.setPhoto(resultSet.getString("photo"));
+				compte.setPhone(resultSet.getString("phone"));
+				compte.setEmail(resultSet.getString("email"));
 
 				System.out.println("SUCCESS-GET-COMPTE-BY-LOGIN");
 
@@ -117,19 +126,15 @@ public class UserModel implements IUserModel {
 	public User addUser(User user) {
 
 		try {
-
-			PreparedStatement ps = connection.prepareStatement("INSERT INTO `user` (`id_user`, `nom_user`, `prenom_user`, `date_naissance_user`, `photo_user`, `email_user`, `telephone_user`, `sexe_user`, `adresse_user`) " +
-					"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);");
+			PreparedStatement ps = connection.prepareStatement("INSERT INTO `user` (`id_user`, `nom`, `prenom`, `date_naissance`, `sexe`,`adresse`) " +
+					"VALUES (?, ?, ?, ?, ?, ?);");
 
 			ps.setInt(1,user.getUserId());
 			ps.setString(2,user.getNom());
 			ps.setString(3,user.getPrenom());
 			ps.setDate(4,user.getDateNaissance() != null ? Date.valueOf(user.getDateNaissance()) : null);
-			ps.setString(5,user.getPhoto());
-			ps.setString(6,user.getEmail());
-			ps.setString(7,user.getTelephone());
-			ps.setString(8,user.getSexe());
-			ps.setString(9,user.getAdresse());
+			ps.setString(5,user.getSexe());
+			ps.setString(6,"{\"street\":\""+user.getAdresse()+"\",\"city\":\"\",\"zipcode\":\"\"}");
 
 
 			int n = ps.executeUpdate();
@@ -163,10 +168,9 @@ public class UserModel implements IUserModel {
 			while (resultSet.next()) {
 				User user = new User();
 				user.setUserId(resultSet.getInt("id_user"));
-				user.setNom(resultSet.getString("nom_user"));
-				user.setPrenom(resultSet.getString("prenom_user"));
-				user.setEmail(resultSet.getString("email_user"));
-				user.setSexe(resultSet.getString("sexe_user"));
+				user.setNom(resultSet.getString("nom"));
+				user.setPrenom(resultSet.getString("prenom"));
+				user.setSexe(resultSet.getString("sexe"));
 				users.add(user);
 			}
 
@@ -189,9 +193,12 @@ public class UserModel implements IUserModel {
 			while (resultSet.next()) {
 				Compte compte = new Compte();
 				compte.setCompteId(resultSet.getInt("id_compte"));
-				compte.setLogin(resultSet.getString("login"));
+				compte.setUsername(resultSet.getString("username"));
 				compte.setRole(resultSet.getString("role"));
 				compte.setStatus(resultSet.getString("status"));
+				compte.setPhone(resultSet.getString("phone"));
+				compte.setEmail(resultSet.getString("email"));
+				compte.setPhoto(resultSet.getString("photo"));
 
 				comptes.add(compte);
 			}
@@ -209,24 +216,25 @@ public class UserModel implements IUserModel {
 		List<Organization> organizations = new ArrayList<>();
 		try {
 
-			PreparedStatement ps = connection.prepareStatement("SELECT C.id_compte,C.login,C.role,C.status,O.matricule_fiscale,O.nom_organisation,O.forme_juridique,O.num_tel,O.email,O.adresse FROM compte C INNER JOIN organisation O ON C.id_compte = O.id_compte;");
+			PreparedStatement ps = connection.prepareStatement("SELECT C.id_compte,C.username,C.role,C.status,C.email,C.phone,C.email,O.matricule_fiscale,O.nom,O.forme_juridique,O.adresse FROM compte C INNER JOIN organisation O ON C.id_compte = O.id_compte;");
 			ResultSet resultSet = ps.executeQuery();
 
 			while (resultSet.next()) {
 				Compte compte = new Compte();
 				compte.setCompteId(resultSet.getInt("id_compte"));
-				compte.setLogin(resultSet.getString("login"));
+				compte.setUsername(resultSet.getString("username"));
 				compte.setRole(resultSet.getString("role"));
 				compte.setStatus(resultSet.getString("status"));
+				compte.setEmail(resultSet.getString("email"));
+				compte.setPhone(resultSet.getString("phone"));
+				compte.setPhoto(resultSet.getString("photo"));
 
 				Organization organization = new Organization();
 				organization.setUserId(resultSet.getInt("id_compte"));
-				organization.setNom(resultSet.getString("nom_organisation"));
-				organization.setEmail(resultSet.getString("email"));
+				organization.setNom(resultSet.getString("nom"));
 				organization.setFormJuridique(resultSet.getString("forme_juridique"));
 				organization.setAdresse(resultSet.getString("adresse"));
 				organization.setMatriculeFiscale(resultSet.getString("matricule_fiscale"));
-				organization.setNumPhone(resultSet.getString("num_tel"));
 				organization.setCompte(compte);
 
 				organizations.add(organization);
@@ -245,28 +253,29 @@ public class UserModel implements IUserModel {
 		List<Medecin> medecins = new ArrayList<>();
 		try {
 
-			PreparedStatement ps = connection.prepareStatement("SELECT C.id_compte, C.login, C.role, C.status, " +
-					"U.nom_user, U.prenom_user, U.email_user, U.telephone_user, U.sexe_user, U.adresse_user, U.date_naissance_user, U.photo_user," +
-					" M.cin, M.specialite, M.matricule, M.Assurance, M.id_ordre FROM compte C INNER JOIN USER U ON C.id_compte = U.id_user INNER JOIN medecin M ON C.id_compte = M.id_user;");
+			PreparedStatement ps = connection.prepareStatement("SELECT C.id_compte, C.username, C.role, C.status, C.email,C.phone,C.photo" +
+					"U.nom, U.prenom, U.sexe_user, U.adresse, U.date_naissance" +
+					" M.cin, M.specialite, M.matricule, M.Assurance FROM compte C INNER JOIN USER U ON C.id_compte = U.id_user INNER JOIN medecin M ON C.id_compte = M.id_user;");
 			ResultSet resultSet = ps.executeQuery();
 
 			while (resultSet.next()) {
 				Compte compte = new Compte();
 				compte.setCompteId(resultSet.getInt("id_compte"));
-				compte.setLogin(resultSet.getString("login"));
+				compte.setUsername(resultSet.getString("username"));
 				compte.setRole(resultSet.getString("role"));
 				compte.setStatus(resultSet.getString("status"));
+				compte.setEmail(resultSet.getString("email"));
+				compte.setPhoto(resultSet.getString("photo"));
+				compte.setPhone(resultSet.getString("phone"));
 
 				Medecin medecin = new Medecin();
 				medecin.setUserId(resultSet.getInt("id_compte"));
-				medecin.setNom(resultSet.getString("nom_user"));
-				medecin.setPrenom(resultSet.getString("prenom_user"));
-				medecin.setEmail(resultSet.getString("email_user"));
-				medecin.setAdresse(resultSet.getString("adresse_user"));
-				medecin.setPhoto(resultSet.getString("photo_user"));
-				medecin.setSexe(resultSet.getString("sexe_user"));
-				medecin.setDateNaissance(resultSet.getDate("date_naissance_user") != null ? resultSet.getDate("date_naissance_user").toLocalDate() : null);
-				medecin.setTelephone(resultSet.getString("telephone_user"));
+				medecin.setNom(resultSet.getString("nom"));
+				medecin.setPrenom(resultSet.getString("prenom"));
+				medecin.setAdresse(resultSet.getString("adresse"));
+				medecin.setSexe(resultSet.getString("sexe"));
+				medecin.setDateNaissance(resultSet.getDate("date_naissance") != null ? resultSet.getDate("date_naissance_user").toLocalDate() : null);
+
 
 				medecin.setCin(resultSet.getString("cin"));
 				medecin.setSpecialite(resultSet.getString("specialite"));
@@ -290,26 +299,28 @@ public class UserModel implements IUserModel {
 		List<Beneficier> beneficiers = new ArrayList<>();
 		try {
 
-			PreparedStatement ps = connection.prepareStatement("SELECT C.id_compte, C.login, C.role, C.status, U.nom_user, U.prenom_user, U.email_user, U.telephone_user, U.sexe_user, U.adresse_user, U.date_naissance_user, U.photo_user, B.carte_handicap, B.date_expiration FROM compte C INNER JOIN USER U ON C.id_compte = U.id_user INNER JOIN beneficier B ON C.id_compte = B.id_user;");
+			PreparedStatement ps = connection.prepareStatement("SELECT C.id_compte, C.login, C.role, C.status,C.phone,C.email,C.photo, U.nom, U.prenom, U.sexe, U.adresse, U.date_naissance, B.carte_handicap, B.date_expiration FROM compte C INNER JOIN USER U ON C.id_compte = U.id_user INNER JOIN beneficier B ON C.id_compte = B.id_user;");
 			ResultSet resultSet = ps.executeQuery();
 
 			while (resultSet.next()) {
 				Compte compte = new Compte();
 				compte.setCompteId(resultSet.getInt("id_compte"));
-				compte.setLogin(resultSet.getString("login"));
+				compte.setUsername(resultSet.getString("username"));
 				compte.setRole(resultSet.getString("role"));
 				compte.setStatus(resultSet.getString("status"));
+				compte.setPhoto(resultSet.getString("photo"));
+				compte.setEmail(resultSet.getString("email"));
+				compte.setPhone(resultSet.getString("phonr"));
 
 				Beneficier beneficier = new Beneficier();
 				beneficier.setUserId(resultSet.getInt("id_compte"));
-				beneficier.setNom(resultSet.getString("nom_user"));
-				beneficier.setPrenom(resultSet.getString("prenom_user"));
-				beneficier.setEmail(resultSet.getString("email_user"));
-				beneficier.setAdresse(resultSet.getString("adresse_user"));
-				beneficier.setPhoto(resultSet.getString("photo_user"));
-				beneficier.setSexe(resultSet.getString("sexe_user"));
-				beneficier.setDateNaissance(resultSet.getDate("date_naissance_user") != null ? resultSet.getDate("date_naissance_user").toLocalDate() : null);
-				beneficier.setTelephone(resultSet.getString("telephone_user"));
+				beneficier.setNom(resultSet.getString("nom"));
+				beneficier.setPrenom(resultSet.getString("prenom"));
+				beneficier.setAdresse(resultSet.getString("adresse"));
+
+				beneficier.setSexe(resultSet.getString("sexe"));
+				beneficier.setDateNaissance(resultSet.getDate("date_naissance") != null ? resultSet.getDate("date_naissance").toLocalDate() : null);
+
 
 				beneficier.setCarteHandicapNumber(resultSet.getString("carte_handicap"));
 				beneficier.setDateExpiration(resultSet.getDate("date_expiration") != null ? resultSet.getDate("date_expiration").toLocalDate() : null);
@@ -338,20 +349,21 @@ public class UserModel implements IUserModel {
 			while (resultSet.next()) {
 				Compte compte = new Compte();
 				compte.setCompteId(resultSet.getInt("id_compte"));
-				compte.setLogin(resultSet.getString("login"));
+				compte.setUsername(resultSet.getString("username"));
 				compte.setRole(resultSet.getString("role"));
 				compte.setStatus(resultSet.getString("status"));
+				compte.setEmail(resultSet.getString("email"));
+				compte.setPhoto(resultSet.getString("photo"));
+				compte.setPhone(resultSet.getString("phone"));
 
 				Benevole benevole = new Benevole();
 				benevole.setUserId(resultSet.getInt("id_compte"));
-				benevole.setNom(resultSet.getString("nom_user"));
-				benevole.setPrenom(resultSet.getString("prenom_user"));
-				benevole.setEmail(resultSet.getString("email_user"));
-				benevole.setAdresse(resultSet.getString("adresse_user"));
-				benevole.setPhoto(resultSet.getString("photo_user"));
-				benevole.setSexe(resultSet.getString("sexe_user"));
-				benevole.setDateNaissance(resultSet.getDate("date_naissance_user") != null ? resultSet.getDate("date_naissance_user").toLocalDate() : null);
-				benevole.setTelephone(resultSet.getString("telephone_user"));
+				benevole.setNom(resultSet.getString("nom"));
+				benevole.setPrenom(resultSet.getString("prenom"));
+				benevole.setAdresse(resultSet.getString("adresse"));
+				benevole.setSexe(resultSet.getString("sexe"));
+				benevole.setDateNaissance(resultSet.getDate("date_naissance") != null ? resultSet.getDate("date_naissance").toLocalDate() : null);
+
 
 				benevole.setProfession(resultSet.getString("profession"));
 
@@ -373,7 +385,7 @@ public class UserModel implements IUserModel {
 		User user = null;
 		try {
 
-			PreparedStatement ps = connection.prepareStatement("SELECT id_user,nom_user,prenom_user,date_naissance_user,photo_user,email_user,telephone_user,sexe_user,adresse_user FROM `user` WHERE `id_user` = ?");
+			PreparedStatement ps = connection.prepareStatement("SELECT id_user,nom,prenom,date_naissance,sexe,adresse FROM `user` WHERE `id_user` = ?");
 			ps.setInt(1,userId);
 
 			ResultSet resultSet = ps.executeQuery();
@@ -382,14 +394,11 @@ public class UserModel implements IUserModel {
 				user = new User();
 
 				user.setUserId(resultSet.getInt("id_user"));
-				user.setNom(resultSet.getString("nom_user"));
-				user.setPrenom(resultSet.getString("prenom_user"));
-				user.setDateNaissance(resultSet.getDate("date_naissance_user").toLocalDate());
-				user.setPhoto(resultSet.getString("photo_user"));
-				user.setEmail(resultSet.getString("email_user"));
-				user.setTelephone(resultSet.getString("telephone_user"));
-				user.setSexe(resultSet.getString("sexe_user"));
-				user.setAdresse(resultSet.getString("adresse_user"));
+				user.setNom(resultSet.getString("nom"));
+				user.setPrenom(resultSet.getString("prenom"));
+				user.setDateNaissance(resultSet.getDate("date_naissance").toLocalDate());
+				user.setSexe(resultSet.getString("sexe"));
+				user.setAdresse(resultSet.getString("adresse")); //TODO ADDRESS
 
 				System.out.println("SUCCESS-GET-USER-BY-ID");
 
@@ -410,7 +419,7 @@ public class UserModel implements IUserModel {
 		try {
 
 			Compte compte = this.addCompte(medecin.getCompte());
-			Compte savedCompte = this.getCompteByLogin(compte.getLogin());
+			Compte savedCompte = this.getCompteByLogin(compte.getUsername());
 			System.out.println(savedCompte);
 			medecin.setUserId(savedCompte.getCompteId());
 			User user = this.addUser(medecin);
@@ -418,14 +427,13 @@ public class UserModel implements IUserModel {
 			System.out.println(savedUser);
 			medecin.setUserId(savedUser.getUserId());
 
-			PreparedStatement ps = connection.prepareStatement("INSERT INTO `medecin` (`id_user`,`matricule`, `specialite`, `id_ordre`, `cin`, `Assurance`) VALUES (?, ?, ?, ?, ?, ?);");
+			PreparedStatement ps = connection.prepareStatement("INSERT INTO `medecin` (`id_user`,`matricule`, `specialite`, `cin`, `Assurance`) VALUES (?, ?, ?, ?, ?);");
 
 			ps.setInt(1,medecin.getUserId());
 			ps.setString(2,medecin.getMatricule());
 			ps.setString(3,medecin.getSpecialite());
-			ps.setInt(4,500);
-			ps.setString(5,medecin.getCin());
-			ps.setString(6,medecin.getAssurance());
+			ps.setString(4,medecin.getCin());
+			ps.setString(5,medecin.getAssurance());
 
 			int n = ps.executeUpdate();
 
@@ -448,21 +456,18 @@ public class UserModel implements IUserModel {
 		try {
 
 			Compte compte = this.addCompte(organization.getCompte());
-			Compte savedCompte = this.getCompteByLogin(compte.getLogin());
+			Compte savedCompte = this.getCompteByLogin(compte.getUsername());
 			System.out.println(savedCompte);
 
 			organization.setUserId(savedCompte.getCompteId());
 
-			PreparedStatement ps = connection.prepareStatement("INSERT INTO `organisation` (`matricule_fiscale`, `nom_organisation`, `forme_juridique`, `num_tel`, `email`, `adresse`, `id_compte`,`photo`) VALUES (?, ?, ?, ?, ?, ?, ?,?);");
+			PreparedStatement ps = connection.prepareStatement("INSERT INTO `organisation` (`matricule_fiscale`, `nom`, `forme_juridique`, `adresse`, `id_compte`) VALUES (?, ?, ?, ?, ?);");
 
 			ps.setString(1,organization.getMatriculeFiscale());
 			ps.setString(2,organization.getNom());
 			ps.setString(3,organization.getFormJuridique());
-			ps.setString(4,organization.getNumPhone());
-			ps.setString(5,organization.getEmail());
-			ps.setString(6,organization.getAdresse());
-			ps.setInt(7,organization.getUserId());
-			ps.setString(8,organization.getPhoto());
+			ps.setString(4,"{\"street\":\""+organization.getAdresse()+"\",\"city\":\"\",\"zipcode\":\"\"}");
+			ps.setInt(5,organization.getUserId());
 
 			int n = ps.executeUpdate();
 
@@ -485,10 +490,13 @@ public class UserModel implements IUserModel {
 		try {
 
 			Compte compte = this.addCompte(beneficier.getCompte());
-			Compte savedCompte = this.getCompteByLogin(compte.getLogin());
+			Compte savedCompte = this.getCompteByLogin(compte.getUsername());
 			System.out.println(savedCompte);
+			System.out.println("*".repeat(50));
 			beneficier.setUserId(savedCompte.getCompteId());
+			System.out.println("*".repeat(50));
 			User user = this.addUser(beneficier);
+			System.out.println("*".repeat(50));
 			User savedUser = this.getUserById(user.getUserId());
 			System.out.println(savedUser);
 			beneficier.setUserId(savedUser.getUserId());
@@ -520,7 +528,7 @@ public class UserModel implements IUserModel {
 		try {
 
 			Compte compte = this.addCompte(benevole.getCompte());
-			Compte savedCompte = this.getCompteByLogin(compte.getLogin());
+			Compte savedCompte = this.getCompteByLogin(compte.getUsername());
 			System.out.println(savedCompte);
 			benevole.setUserId(savedCompte.getCompteId());
 			User user = this.addUser(benevole);
@@ -555,7 +563,7 @@ public class UserModel implements IUserModel {
 
 		try {
 
-			PreparedStatement ps = connection.prepareStatement("SELECT count(*) AS NB_COMPTES FROM `compte` WHERE `login`=?;");
+			PreparedStatement ps = connection.prepareStatement("SELECT count(*) AS NB_COMPTES FROM `compte` WHERE `username`=?;");
 			ps.setString(1,login);
 
 			ResultSet resultSet = ps.executeQuery();
@@ -584,10 +592,9 @@ public class UserModel implements IUserModel {
 		int nb = 0;
 
 		try {
-
-			PreparedStatement ps = connection.prepareStatement("SELECT SUM(RESULAT.NB_USERS) AS NB_USERS FROM (SELECT count(*) AS NB_USERS FROM `organisation` WHERE `email`=? UNION ALL SELECT count(*) AS NB_USERS FROM `user` WHERE `email_user`=?) AS RESULAT;");
+			// "SELECT SUM(RESULAT.NB_USERS) AS NB_USERS FROM (SELECT count(*) AS NB_USERS FROM `organisation` WHERE `email`=? UNION ALL SELECT count(*) AS NB_USERS FROM `user` WHERE `email_user`=?) AS RESULAT;
+			PreparedStatement ps = connection.prepareStatement("SELECT COUNT(C.id_compte) AS NB_USERS FROM `compte` AS C WHERE `email`=?");
 			ps.setString(1,email);
-			ps.setString(2,email);
 
 			ResultSet resultSet = ps.executeQuery();
 
@@ -615,10 +622,9 @@ public class UserModel implements IUserModel {
 		int nb = 0;
 
 		try {
-
-			PreparedStatement ps = connection.prepareStatement("SELECT SUM(RESULAT.NB_USERS) AS NB_USERS FROM (SELECT count(*) AS NB_USERS FROM `organisation` WHERE `num_tel`=? UNION ALL SELECT count(*) AS NB_USERS FROM `user` WHERE `telephone_user`=?) AS RESULAT;");
+			// "SELECT SUM(RESULAT.NB_USERS) AS NB_USERS FROM (SELECT count(*) AS NB_USERS FROM `organisation` WHERE `num_tel`=? UNION ALL SELECT count(*) AS NB_USERS FROM `user` WHERE `telephone_user`=?) AS RESULAT;"
+			PreparedStatement ps = connection.prepareStatement("SELECT COUNT(C.id_compte) AS NB_USERS FROM `compte` AS C WHERE `phone`=?");
 			ps.setString(1,telephone);
-			ps.setString(2,telephone);
 
 			ResultSet resultSet = ps.executeQuery();
 
@@ -706,26 +712,26 @@ public class UserModel implements IUserModel {
 		Organization organization = null;
 		try {
 
-			PreparedStatement ps = connection.prepareStatement("SELECT C.id_compte,C.login,C.role,C.status,O.matricule_fiscale,O.nom_organisation,O.forme_juridique,O.num_tel,O.email,O.adresse,O.photo FROM compte C INNER JOIN organisation O ON C.id_compte = O.id_compte WHERE O.id_compte = ?;");
+			PreparedStatement ps = connection.prepareStatement("SELECT C.id_compte,C.username,C.role,C.status,C.photo,C.phone,C.email,O.matricule_fiscale,O.nom,O.forme_juridique,O.adresse FROM compte C INNER JOIN organisation O ON C.id_compte = O.id_compte WHERE O.id_compte = ?;");
 			ps.setInt(1,organizationId);
 			ResultSet resultSet = ps.executeQuery();
 
 			if(resultSet.next()) {
 				Compte compte = new Compte();
 				compte.setCompteId(resultSet.getInt("id_compte"));
-				compte.setLogin(resultSet.getString("login"));
+				compte.setUsername(resultSet.getString("username"));
 				compte.setRole(resultSet.getString("role"));
 				compte.setStatus(resultSet.getString("status"));
+				compte.setEmail(resultSet.getString("email"));
+				compte.setPhone(resultSet.getString("phone"));
+				compte.setPhoto(resultSet.getString("photo"));
 
 				organization = new Organization();
 				organization.setUserId(resultSet.getInt("id_compte"));
 				organization.setNom(resultSet.getString("nom_organisation"));
-				organization.setEmail(resultSet.getString("email"));
 				organization.setFormJuridique(resultSet.getString("forme_juridique"));
 				organization.setAdresse(resultSet.getString("adresse"));
 				organization.setMatriculeFiscale(resultSet.getString("matricule_fiscale"));
-				organization.setNumPhone(resultSet.getString("num_tel"));
-				organization.setPhoto(resultSet.getString("photo"));
 				organization.setCompte(compte);
 
 				System.out.println("SUCCESS-GET-ORGANIZATION-BY-ID");
@@ -754,20 +760,21 @@ public class UserModel implements IUserModel {
 			if(resultSet.next()) {
 				Compte compte = new Compte();
 				compte.setCompteId(resultSet.getInt("id_compte"));
-				compte.setLogin(resultSet.getString("login"));
+				compte.setUsername(resultSet.getString("username"));
 				compte.setRole(resultSet.getString("role"));
 				compte.setStatus(resultSet.getString("status"));
+				compte.setPhoto(resultSet.getString("photo"));
+				compte.setEmail(resultSet.getString("email"));
+				compte.setPhone(resultSet.getString("phone"));
 
 				medecin = new Medecin();
 				medecin.setUserId(resultSet.getInt("id_compte"));
-				medecin.setNom(resultSet.getString("nom_user"));
-				medecin.setPrenom(resultSet.getString("prenom_user"));
-				medecin.setEmail(resultSet.getString("email_user"));
-				medecin.setAdresse(resultSet.getString("adresse_user"));
-				medecin.setPhoto(resultSet.getString("photo_user"));
-				medecin.setSexe(resultSet.getString("sexe_user"));
-				medecin.setDateNaissance(resultSet.getDate("date_naissance_user") != null ? resultSet.getDate("date_naissance_user").toLocalDate() : null);
-				medecin.setTelephone(resultSet.getString("telephone_user"));
+				medecin.setNom(resultSet.getString("nom"));
+				medecin.setPrenom(resultSet.getString("prenom"));
+				medecin.setAdresse(resultSet.getString("adresse"));
+				medecin.setSexe(resultSet.getString("sexe"));
+				medecin.setDateNaissance(resultSet.getDate("date_naissance") != null ? resultSet.getDate("date_naissance").toLocalDate() : null);
+
 
 				medecin.setCin(resultSet.getString("cin"));
 				medecin.setSpecialite(resultSet.getString("specialite"));
@@ -793,27 +800,28 @@ public class UserModel implements IUserModel {
 		Beneficier beneficier = null;
 		try {
 
-			PreparedStatement ps = connection.prepareStatement("SELECT C.id_compte, C.login, C.role, C.status, U.nom_user, U.prenom_user, U.email_user, U.telephone_user, U.sexe_user, U.adresse_user, U.date_naissance_user, U.photo_user, B.carte_handicap, B.date_expiration FROM compte C INNER JOIN USER U ON C.id_compte = U.id_user INNER JOIN beneficier B ON C.id_compte = B.id_user WHERE B.id_user = ?;");
+			PreparedStatement ps = connection.prepareStatement("SELECT C.id_compte, C.username, C.role, C.status, U.nom_user, U.prenom_user, U.email_user, U.telephone_user, U.sexe_user, U.adresse_user, U.date_naissance_user, U.photo_user, B.carte_handicap, B.date_expiration FROM compte C INNER JOIN USER U ON C.id_compte = U.id_user INNER JOIN beneficier B ON C.id_compte = B.id_user WHERE B.id_user = ?;");
 			ps.setInt(1,beneficierId);
 			ResultSet resultSet = ps.executeQuery();
 
 			if(resultSet.next()) {
 				Compte compte = new Compte();
 				compte.setCompteId(resultSet.getInt("id_compte"));
-				compte.setLogin(resultSet.getString("login"));
+				compte.setUsername(resultSet.getString("username"));
 				compte.setRole(resultSet.getString("role"));
 				compte.setStatus(resultSet.getString("status"));
+				compte.setPhoto(resultSet.getString("photo"));
+				compte.setEmail(resultSet.getString("email"));
+				compte.setPhone(resultSet.getString("phone"));
 
 				beneficier = new Beneficier();
 				beneficier.setUserId(resultSet.getInt("id_compte"));
-				beneficier.setNom(resultSet.getString("nom_user"));
-				beneficier.setPrenom(resultSet.getString("prenom_user"));
-				beneficier.setEmail(resultSet.getString("email_user"));
-				beneficier.setAdresse(resultSet.getString("adresse_user"));
-				beneficier.setPhoto(resultSet.getString("photo_user"));
-				beneficier.setSexe(resultSet.getString("sexe_user"));
-				beneficier.setDateNaissance(resultSet.getDate("date_naissance_user") != null ? resultSet.getDate("date_naissance_user").toLocalDate() : null);
-				beneficier.setTelephone(resultSet.getString("telephone_user"));
+				beneficier.setNom(resultSet.getString("nom"));
+				beneficier.setPrenom(resultSet.getString("prenom"));
+				beneficier.setAdresse(resultSet.getString("adresse"));
+				beneficier.setSexe(resultSet.getString("sexe"));
+				beneficier.setDateNaissance(resultSet.getDate("date_naissance") != null ? resultSet.getDate("date_naissance").toLocalDate() : null);
+
 
 				beneficier.setCarteHandicapNumber(resultSet.getString("carte_handicap"));
 				beneficier.setDateExpiration(resultSet.getDate("date_expiration") != null ? resultSet.getDate("date_expiration").toLocalDate() : null);
@@ -837,27 +845,28 @@ public class UserModel implements IUserModel {
 		Benevole benevole = null;
 		try {
 
-			PreparedStatement ps = connection.prepareStatement("SELECT C.id_compte, C.login, C.role, C.status, U.nom_user, U.prenom_user, U.email_user, U.telephone_user, U.sexe_user, U.adresse_user, U.date_naissance_user, U.photo_user, B.profession FROM compte C INNER JOIN USER U ON C.id_compte = U.id_user INNER JOIN benevole B ON C.id_compte = B.id_user WHERE B.id_user = ?;");
+			PreparedStatement ps = connection.prepareStatement("SELECT C.id_compte, C.username, C.role, C.status, U.nom_user, U.prenom_user, U.email_user, U.telephone_user, U.sexe_user, U.adresse_user, U.date_naissance_user, U.photo_user, B.profession FROM compte C INNER JOIN USER U ON C.id_compte = U.id_user INNER JOIN benevole B ON C.id_compte = B.id_user WHERE B.id_user = ?;");
 			ps.setInt(1,benevoleId);
 			ResultSet resultSet = ps.executeQuery();
 
 			if(resultSet.next()) {
 				Compte compte = new Compte();
 				compte.setCompteId(resultSet.getInt("id_compte"));
-				compte.setLogin(resultSet.getString("login"));
+				compte.setUsername(resultSet.getString("username"));
 				compte.setRole(resultSet.getString("role"));
 				compte.setStatus(resultSet.getString("status"));
+				compte.setEmail(resultSet.getString("email"));
+				compte.setPhoto(resultSet.getString("photo"));
+				compte.setPhone(resultSet.getString("phone"));
 
 				benevole = new Benevole();
 				benevole.setUserId(resultSet.getInt("id_compte"));
-				benevole.setNom(resultSet.getString("nom_user"));
-				benevole.setPrenom(resultSet.getString("prenom_user"));
-				benevole.setEmail(resultSet.getString("email_user"));
-				benevole.setAdresse(resultSet.getString("adresse_user"));
-				benevole.setPhoto(resultSet.getString("photo_user"));
-				benevole.setSexe(resultSet.getString("sexe_user"));
-				benevole.setDateNaissance(resultSet.getDate("date_naissance_user") != null ? resultSet.getDate("date_naissance_user").toLocalDate() : null);
-				benevole.setTelephone(resultSet.getString("telephone_user"));
+				benevole.setNom(resultSet.getString("nom"));
+				benevole.setPrenom(resultSet.getString("prenom"));
+				benevole.setAdresse(resultSet.getString("adresse"));
+				benevole.setSexe(resultSet.getString("sexe"));
+				benevole.setDateNaissance(resultSet.getDate("date_naissance") != null ? resultSet.getDate("date_naissance").toLocalDate() : null);
+
 
 				benevole.setProfession(resultSet.getString("profession"));
 
@@ -879,7 +888,7 @@ public class UserModel implements IUserModel {
 	public Compte editCompte(int compteId, Compte updatedCompte) {
 		try {
 			PreparedStatement ps = connection.prepareStatement("UPDATE `compte` SET `login` = ?, `role`=?, `status`=? WHERE `id_compte` = ?;");
-			ps.setString(1,updatedCompte.getLogin());
+			ps.setString(1,updatedCompte.getUsername());
 //            ps.setString(2, DigestUtils.sha256Hex(updatedCompte.getPassword()));
 			ps.setString(2,updatedCompte.getRole());
 			ps.setString(3,updatedCompte.getStatus());
@@ -907,15 +916,13 @@ public class UserModel implements IUserModel {
 
 			Compte updatedCompte = this.editCompte(organizationId,updatedOrganization.getCompte());
 
-			PreparedStatement ps = connection.prepareStatement("UPDATE organisation SET `matricule_fiscale` = ?, `nom_organisation` = ?, `forme_juridique` = ?, `num_tel` = ?, `email` = ?, `adresse` = ? WHERE id_compte = ?;");
+			PreparedStatement ps = connection.prepareStatement("UPDATE organisation SET `matricule_fiscale` = ?, `nom` = ?, `forme_juridique` = ?, `adresse` = ? WHERE id_compte = ?;");
 
 			ps.setString(1,updatedOrganization.getMatriculeFiscale());
 			ps.setString(2,updatedOrganization.getNom());
 			ps.setString(3,updatedOrganization.getFormJuridique());
-			ps.setString(4,updatedOrganization.getNumPhone());
-			ps.setString(5,updatedOrganization.getEmail());
-			ps.setString(6,updatedOrganization.getAdresse());
-			ps.setInt(7,organizationId);
+			ps.setString(4,updatedOrganization.getAdresse());
+			ps.setInt(5,organizationId);
 
 			int n = ps.executeUpdate();
 
@@ -967,9 +974,9 @@ public class UserModel implements IUserModel {
 	}
 
 	@Override
-	public String editUserProfilePhoto(int userId, String photo) {
+	public String editAccountPhoto(int userId, String photo) {
 		try {
-			PreparedStatement ps = connection.prepareStatement("UPDATE `user` SET `photo_user` = ? WHERE `id_user` = ?");
+			PreparedStatement ps = connection.prepareStatement("UPDATE `compte` SET `photo` = ? WHERE `id_compte` = ?");
 			ps.setString(1,photo);
 			ps.setInt(2,userId);
 			int resultat = ps.executeUpdate();
@@ -983,29 +990,13 @@ public class UserModel implements IUserModel {
 		return null;
 	}
 
-	@Override
-	public String editOrganizationProfilePhoto(int organizationId, String photo) {
-		try {
-			PreparedStatement ps = connection.prepareStatement("UPDATE `organisation` SET `photo` = ? WHERE `id_compte` = ?");
-			ps.setString(1,photo);
-			ps.setInt(2,organizationId);
-			int resultat = ps.executeUpdate();
-
-			if(resultat == 1) {
-				return photo;
-			}
-		} catch (SQLException exception) {
-			System.out.println(exception.getMessage());
-		}
-		return null;
-	}
 
 	@Override
 	public int getUserIdByEmail(String email) {
 		try {
-			PreparedStatement ps = connection.prepareStatement("SELECT C.id_compte AS 'ID' FROM compte C LEFT JOIN user U ON U.id_user = C.id_compte LEFT JOIN organisation O ON O.id_compte = C.id_compte WHERE (U.email_user = ?) OR (O.email = ?);");
+			// "SELECT C.id_compte AS 'ID' FROM compte C LEFT JOIN user U ON U.id_user = C.id_compte LEFT JOIN organisation O ON O.id_compte = C.id_compte WHERE (U.email = ?) OR (O.email = ?);"
+			PreparedStatement ps = connection.prepareStatement("SELECT C.id_compte AS 'ID' FROM compte AS C WHERE C.email = ?");
 			ps.setString(1,email);
-			ps.setString(2,email);
 			ResultSet resultat = ps.executeQuery();
 			if(resultat.next()) {
 				return resultat.getInt("ID");
@@ -1049,5 +1040,65 @@ public class UserModel implements IUserModel {
 			System.out.println(exception.getMessage());
 		}
 		return false;
+	}
+
+	@Override
+	public boolean existsBeneficierByCarteHandicapNumber(String carteHandicapNumber) {
+		int nb = 0;
+
+		try {
+
+			PreparedStatement ps = connection.prepareStatement("SELECT count(B.carte_handicap) AS NB_BENEFICIERS FROM `beneficier` AS B WHERE `carte_handicap`=?;");
+			ps.setString(1,carteHandicapNumber);
+
+			ResultSet resultSet = ps.executeQuery();
+
+			if (resultSet.next()) {
+				nb = resultSet.getInt("NB_BENEFICIERS");
+				System.out.println("NB_BENEFICIERS : "+ nb);
+
+				System.out.println("SUCCESS-GET-BENEFICIER-BY-CARTE");
+
+			} else {
+				System.out.println("ERROR-GET-BENEFICIER-BY-CARTE");
+			}
+
+			ps.close();
+
+		} catch (SQLException exception) {
+			System.out.println(exception.getMessage());
+		}
+
+		return nb != 0;
+	}
+
+	@Override
+	public boolean existsOrganizationByMatricule(String matricule) {
+		int nb = 0;
+
+		try {
+
+			PreparedStatement ps = connection.prepareStatement("SELECT count(O.matricule_fiscale) AS NB_ORGANIZATIONS FROM `organisation` AS O WHERE `matricule_fiscale`=?;");
+			ps.setString(1,matricule);
+
+			ResultSet resultSet = ps.executeQuery();
+
+			if (resultSet.next()) {
+				nb = resultSet.getInt("NB_ORGANIZATIONS");
+				System.out.println("NB_ORGANIZATIONS : "+ nb);
+
+				System.out.println("SUCCESS-GET-ORGANIZATION-BY-MATRICULE");
+
+			} else {
+				System.out.println("ERROR-GET-ORGANIZATION-BY-MATRICULE");
+			}
+
+			ps.close();
+
+		} catch (SQLException exception) {
+			System.out.println(exception.getMessage());
+		}
+
+		return nb != 0;
 	}
 }

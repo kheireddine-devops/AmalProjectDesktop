@@ -9,7 +9,7 @@ import java.util.Properties;
 public class MailUtils {
 
     private static final String USERNAME = "mkd.dev.ops@gmail.com";
-    private static final String PASSWORD = "coiebhbrufhqgmoh";
+    private static final String PASSWORD = "kdjazzkaanikfapf";
     private static Session session = null;
 
     private MailUtils() {}

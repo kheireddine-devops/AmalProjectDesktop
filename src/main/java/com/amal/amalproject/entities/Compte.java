@@ -2,7 +2,7 @@ package com.amal.amalproject.entities;
 
 public class Compte {
     private int compteId;
-    private String login;
+    private String username;
     private String password;
     private String role;
     private String status;
@@ -10,6 +10,10 @@ public class Compte {
     private String tempResetPassword;
     private String tempValidatePhone;
     private String tempValidateMail;
+
+    private String photo;
+    private String phone;
+    private String email;
 
 
     /* Start Section Constructor */
@@ -25,14 +29,6 @@ public class Compte {
 
     public void setCompteId(int compteId) {
         this.compteId = compteId;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
     }
 
     public String getPassword() {
@@ -82,6 +78,38 @@ public class Compte {
     public void setTempValidateMail(String tempValidateMail) {
         this.tempValidateMail = tempValidateMail;
     }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
     /* End Section Getters & Setters */
 
 
@@ -91,10 +119,16 @@ public class Compte {
     public String toString() {
         return "Compte{" +
                 "compteId=" + compteId +
-                ", login='" + login + '\'' +
+                ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", role='" + role + '\'' +
                 ", status='" + status + '\'' +
+                ", tempResetPassword='" + tempResetPassword + '\'' +
+                ", tempValidatePhone='" + tempValidatePhone + '\'' +
+                ", tempValidateMail='" + tempValidateMail + '\'' +
+                ", photo='" + photo + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
                 '}';
     }
     /* End Section ToString */

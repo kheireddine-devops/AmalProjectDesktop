@@ -125,11 +125,11 @@ public class UserHomeController extends SharedController implements Initializabl
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Compte compte = SessionUtils.getCurrentUser();
-        System.out.println(compte);
+        System.out.println("*************" + compte);
 
+        /* admin benevole benificier doctor organization */
         if(compte == null) {
-            /* admin benevole benificier doctor organization */
-            compte = userModel.login("benificier","azeAZE123*");
+            compte = userModel.login("doctor","azeAZE123*");
             SessionUtils.addCurrentUser(compte);
         }
 
@@ -146,9 +146,9 @@ public class UserHomeController extends SharedController implements Initializabl
                 System.out.println(organization);
                 this.fullnameID.setText(organization.getNom());
 
-                if(!organization.getPhoto().equals("DEFAULT-URL")) {
-                    SessionUtils.addCurrentUserPhoto(organization.getPhoto());
-                    Image image = new Image(FileUploaderUtils.loadImage(organization.getPhoto()));
+                if(!(compte.getPhoto() == null)) {
+                    SessionUtils.addCurrentUserPhoto(compte.getPhoto());
+                    Image image = new Image(FileUploaderUtils.loadImage(compte.getPhoto()));
                     imageViewID.setImage(image);
                 }
 
@@ -156,9 +156,12 @@ public class UserHomeController extends SharedController implements Initializabl
                 User user = userModel.getUserById(compte.getCompteId());
                 this.fullnameID.setText(user.getNom() + " " + user.getPrenom());
 
-                if(!user.getPhoto().equals("DEFAULT-URL")) {
-                    SessionUtils.addCurrentUserPhoto(user.getPhoto());
-                    Image image = new Image(FileUploaderUtils.loadImage(user.getPhoto()));
+                System.out.println(user.getNom() + " " + user.getPrenom());
+                System.out.println(compte.getPhoto());
+
+                if((compte.getPhoto() != null)) {
+                    SessionUtils.addCurrentUserPhoto(compte.getPhoto());
+                    Image image = new Image(FileUploaderUtils.loadImage(compte.getPhoto()));
                     imageViewID.setImage(image);
                 }
             }

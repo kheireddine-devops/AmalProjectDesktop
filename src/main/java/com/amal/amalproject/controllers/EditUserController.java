@@ -64,13 +64,7 @@ public class EditUserController extends SharedController implements Initializabl
         Compte compte = SessionUtils.getCurrentUser();
         if(compte != null && !photoID.getText().isEmpty()) {
 
-            if (compte.getRole().equals(RoleEnum.ROLE_ORGANIZATION.toString())) {
-                this.userModel.editOrganizationProfilePhoto(compte.getCompteId(),photoID.getText());
-                System.out.println("PHOTO-ORGANIZATION");
-            } else {
-                this.userModel.editUserProfilePhoto(compte.getCompteId(),photoID.getText());
-                System.out.println("PHOTO-USER");
-            }
+            this.userModel.editAccountPhoto(compte.getCompteId(),photoID.getText());
 
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Votre image de profile modifier avec succès\npour que l'application utilise correctement votre nouvelle photo ,\nIl faut vous re-connecte");
             alert.setTitle("Photo de Profile");

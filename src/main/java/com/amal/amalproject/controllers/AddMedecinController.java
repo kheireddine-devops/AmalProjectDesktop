@@ -110,12 +110,15 @@ public class AddMedecinController extends SharedController implements Initializa
         if (isValidDoctor()) {
             /******************************** Start Entity Compte ********************************/
             Compte compte = new Compte();
-            compte.setLogin(loginID.getText());
+            compte.setUsername(loginID.getText());
             compte.setPassword(passwordID.getText());
             compte.setRole(RoleEnum.ROLE_DOCTOR.toString());
             compte.setStatus(AccountStatus.STATUS_ACTIVE_NOT_VERIFIED_PHONE_NOT_VERIFIED_MAIL.toString());
             compte.setTempValidateMail(RandomStringUtils.random(6, false, true));
             compte.setTempValidatePhone(RandomStringUtils.random(6, false, true));
+            compte.setPhone(telephoneID.getText());
+            compte.setEmail(emailID.getText());
+            compte.setPhoto("DEFAULT-URL");
             System.out.println(compte);
             /******************************** End Entity Compte ********************************/
             /******************************** Start Entity Medecin ********************************/
@@ -124,16 +127,13 @@ public class AddMedecinController extends SharedController implements Initializa
             Medecin medecin = new Medecin();
             medecin.setNom(firstNameID.getText());
             medecin.setPrenom(lastNameID.getText());
-            medecin.setEmail(emailID.getText());
             medecin.setDateNaissance(dateNaissanceID.getValue());
-            medecin.setTelephone(telephoneID.getText());
             medecin.setAdresse(adresseID.getText());
             medecin.setCin(cinID.getText());
             medecin.setMatricule(matriculeID.getText());
             medecin.setSexe(((RadioButton)sexeGroupID.getSelectedToggle()).getText());
             medecin.setSpecialite(specialiteID.getValue());
             medecin.setAssurance(assuranceID.getValue());
-            medecin.setPhoto("DEFAULT-URL");
             medecin.setCompte(compte);
 
             System.out.println(medecin);
@@ -158,10 +158,10 @@ public class AddMedecinController extends SharedController implements Initializa
                         "        <p>À bientôt,<br>L'équipe AmalApplication</p>\n" +
                         "    </div>";
 
-                MailUtils.sendHtmlMail(medecin.getEmail(),subjectMail,htmlMail);
+                MailUtils.sendHtmlMail(compte.getEmail(),subjectMail,htmlMail);
                 System.out.println("SUCCESS-SEND-MAIL");
                 String smsMessage = "Bonjour "+medecin.getNom()+"\nVotre code de validation : "+medecin.getCompte().getTempValidatePhone();
-                TwilioSMSUtils.sendMessage("+216" + medecin.getTelephone(),smsMessage);
+                TwilioSMSUtils.sendMessage("+216" + compte.getPhone(),smsMessage);
                 System.out.println("SUCCESS-SEND-SMS");
 
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, "Vous avez terminé avec succès le processus d'inscription\ncliquer sur ok puis s'authentifiez par votre login et mot de passe", ButtonType.OK);
@@ -182,6 +182,21 @@ public class AddMedecinController extends SharedController implements Initializa
         } else {
             System.out.println("INVALIDE");
         }
+    }
+
+    void initDoctor() {
+        loginID.setText("kheireddine");
+        passwordID.setText("azeAZE123*");
+        firstNameID.setText("kheireddine");
+        lastNameID.setText("mechergui");
+        emailID.setText("kheireddine.mechergui@gmail.com");
+        dateNaissanceID.setValue(LocalDate.now());
+        telephoneID.setText("25666888");
+        adresseID.setText("Beja");
+        cinID.setText("78541236");
+        specialiteID.setValue("Chirurgien Esthétique");
+        assuranceID.setValue("CNAM");
+        matriculeID.setText("DOC-12345678");
     }
 
     private boolean isValidDoctor() {
@@ -477,6 +492,7 @@ public class AddMedecinController extends SharedController implements Initializa
                 "Urologue"
         );
         specialiteID.getItems().addAll(specialiteList);
+        initDoctor();
 //        maleRadioID.setToggleGroup(sexeGroupID);
 //        femaleRadioID.setToggleGroup(sexeGroupID);
 //        ValidationSupport support = new ValidationSupport();

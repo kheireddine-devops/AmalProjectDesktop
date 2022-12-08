@@ -34,7 +34,7 @@ public class UsersManagementController implements Initializable {
         TableColumn<Compte, String> statusColumn = new TableColumn<>("Status");
 
         compteIdColumn.setCellValueFactory(new PropertyValueFactory<>("compteId"));
-        usernameColumn.setCellValueFactory(new PropertyValueFactory<>("login"));
+        usernameColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
         usernameColumn.setCellFactory(TextFieldTableCell.<Compte>forTableColumn());
 
 //        passwordColumn.setCellValueFactory(new PropertyValueFactory<>("password"));
@@ -55,7 +55,7 @@ public class UsersManagementController implements Initializable {
 //            System.out.println("-".repeat(50));
 
             if(newValue.equals("ACTIVE")) {
-                userModel.changeAccountStatus(compte.getCompteId(),AccountStatus.STATUS_ACTIVE_VERIFIED_PHONE_VERIFIED_MAIL);
+                userModel.changeAccountStatus(compte.getCompteId(),AccountStatus.STATUS_ACTIVE_NOT_VERIFIED_PHONE_NOT_VERIFIED_MAIL);
             }
 
             if(newValue.equals("DESACTIVE")) {

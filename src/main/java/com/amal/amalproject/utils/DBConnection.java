@@ -14,7 +14,7 @@ public class DBConnection {
 
         if (INSTANCE == null) {
             try {
-                INSTANCE = DriverManager.getConnection("jdbc:mysql://localhost:3306/amal?useSSL=false","root","");
+                INSTANCE = DriverManager.getConnection("jdbc:mysql://localhost:3306/amaldb?useSSL=false","root","");
             } catch (SQLException exception) {
                 System.out.println(exception.getMessage());
             }

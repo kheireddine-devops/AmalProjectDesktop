@@ -8,9 +8,6 @@ public class User {
     protected String nom;
     protected String prenom;
     protected LocalDate dateNaissance;
-    protected String photo;
-    protected String email;
-    protected String telephone;
     protected String sexe;
     protected String adresse;
 
@@ -56,29 +53,6 @@ public class User {
         this.dateNaissance = dateNaissance;
     }
 
-    public String getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(String photo) {
-        this.photo = photo;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getTelephone() {
-        return telephone;
-    }
-
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
-    }
 
     public String getSexe() {
         return sexe;
@@ -114,9 +88,6 @@ public class User {
                 ", nom='" + nom + '\'' +
                 ", prenom='" + prenom + '\'' +
                 ", dateNaissance=" + dateNaissance +
-                ", photo='" + photo + '\'' +
-                ", email='" + email + '\'' +
-                ", telephone='" + telephone + '\'' +
                 ", sexe='" + sexe + '\'' +
                 ", adresse='" + adresse + '\'' +
                 ", compte=" + compte +

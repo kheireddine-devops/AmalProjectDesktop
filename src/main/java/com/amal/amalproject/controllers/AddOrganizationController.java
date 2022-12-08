@@ -64,24 +64,24 @@ public class AddOrganizationController extends SharedController implements Initi
         if (isValidOrganization()) {
             /******************************** Start Entity Compte ********************************/
             Compte compte = new Compte();
-            compte.setLogin(loginID.getText());
+            compte.setUsername(loginID.getText());
             compte.setPassword(passwordID.getText());
             compte.setRole(RoleEnum.ROLE_ORGANIZATION.toString());
             compte.setStatus(AccountStatus.STATUS_ACTIVE_NOT_VERIFIED_PHONE_NOT_VERIFIED_MAIL.toString());
             compte.setTempValidateMail(RandomStringUtils.random(6, false, true));
             compte.setTempValidatePhone(RandomStringUtils.random(6, false, true));
+            compte.setPhone(telephoneID.getText());
+            compte.setPhoto("DEFAULT-URL");
+            compte.setEmail(emailID.getText());
             System.out.println(compte);
             /******************************** End Entity Compte ********************************/
             /******************************** Start Entity Organization ********************************/
 
             Organization organization = new Organization();
             organization.setNom(nameID.getText());
-            organization.setEmail(emailID.getText());
             organization.setAdresse(adresseID.getText());
             organization.setFormJuridique(formJuridiqueID.getValue());
             organization.setMatriculeFiscale(matriculeID.getText());
-            organization.setNumPhone(telephoneID.getText());
-            organization.setPhoto("DEFAULT-URL");
             organization.setCompte(compte);
 
             System.out.println(organization);
@@ -106,10 +106,10 @@ public class AddOrganizationController extends SharedController implements Initi
                         "        <p>À bientôt,<br>L'équipe AmalApplication</p>\n" +
                         "    </div>";
 
-                MailUtils.sendHtmlMail(savedOrganization.getEmail(),subjectMail,htmlMail);
+                MailUtils.sendHtmlMail(compte.getEmail(),subjectMail,htmlMail);
                 System.out.println("SUCCESS-SEND-MAIL");
                 String smsMessage = "Bonjour "+organization.getNom()+"\nVotre code de validation : "+organization.getCompte().getTempValidatePhone();
-                TwilioSMSUtils.sendMessage("+216" + savedOrganization.getNumPhone(),smsMessage);
+                TwilioSMSUtils.sendMessage("+216" + compte.getPhone(),smsMessage);
                 System.out.println("SUCCESS-SEND-SMS");
 
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, "Vous avez terminé avec succès le processus d'inscription\ncliquer sur ok puis s'authentifiez par votre login et mot de passe", ButtonType.OK);
@@ -231,10 +231,10 @@ public class AddOrganizationController extends SharedController implements Initi
             errorMatriculeID.setText("Matricule est obligatoire");
             isValidMatriculeFiscale = false;
         }
-//        else if (userModel.(matricule)) {
-//            errorMatriculeID.setText("Ce matricule est déjà utilisé");
-//            isValidMatriculeFiscale = false;
-//        }
+        else if (userModel.existsOrganizationByMatricule(matricule)) {
+            errorMatriculeID.setText("Ce matricule est déjà utilisé");
+            isValidMatriculeFiscale = false;
+        }
         else {
             errorMatriculeID.setText("");
             isValidMatriculeFiscale = true;
@@ -262,10 +262,22 @@ public class AddOrganizationController extends SharedController implements Initi
 
     }
 
+    void initOrganization() {
+        loginID.setText("amal");
+        passwordID.setText("azeAZE123*");
+        nameID.setText("Assoc. Amal");
+        emailID.setText("kheireddine.mechergui@gmail.com");
+        telephoneID.setText("25666888");
+        adresseID.setText("Beja");
+        matriculeID.setText("8522785/A/A/C/000");
+        formJuridiqueID.setValue("Société en commandite par actions (SCA)");
+    }
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("AddOrganizationController.initialize()");
+        initOrganization();
     }
 
     public void onRetourClick(ActionEvent actionEvent) {

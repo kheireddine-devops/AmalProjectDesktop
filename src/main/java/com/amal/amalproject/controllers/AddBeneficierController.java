@@ -79,12 +79,15 @@ public class AddBeneficierController extends SharedController implements Initial
         if (isValidBeneficier()) {
             /******************************** Start Entity Compte ********************************/
             Compte compte = new Compte();
-            compte.setLogin(loginID.getText());
+            compte.setUsername(loginID.getText());
             compte.setPassword(passwordID.getText());
             compte.setRole(RoleEnum.ROLE_BENEFICIER.toString());
             compte.setStatus(AccountStatus.STATUS_ACTIVE_NOT_VERIFIED_PHONE_NOT_VERIFIED_MAIL.toString());
             compte.setTempValidateMail(RandomStringUtils.random(6, false, true));
             compte.setTempValidatePhone(RandomStringUtils.random(6, false, true));
+            compte.setEmail(emailID.getText());
+            compte.setPhone(telephoneID.getText());
+            compte.setPhoto(null);
             System.out.println(compte);
             /******************************** End Entity Compte ********************************/
             /******************************** Start Entity Benificier ********************************/
@@ -93,12 +96,9 @@ public class AddBeneficierController extends SharedController implements Initial
             Beneficier beneficier = new Beneficier();
             beneficier.setNom(firstNameID.getText());
             beneficier.setPrenom(lastNameID.getText());
-            beneficier.setEmail(emailID.getText());
             beneficier.setDateNaissance(dateNaissanceID.getValue());
-            beneficier.setTelephone(telephoneID.getText());
             beneficier.setAdresse(adresseID.getText());
             beneficier.setSexe(((RadioButton)sexeGroupID.getSelectedToggle()).getText());
-            beneficier.setPhoto("DEFAULT-URL");
             beneficier.setCompte(compte);
             beneficier.setCarteHandicapNumber(carteHandicapNumberID.getText());
             beneficier.setDateExpiration(dateExpirationID.getValue());
@@ -125,10 +125,10 @@ public class AddBeneficierController extends SharedController implements Initial
                         "\n" +
                         "        <p>À bientôt,<br>L'équipe AmalApplication</p>\n" +
                         "    </div>";
-                MailUtils.sendHtmlMail(beneficier.getEmail(),subjectMail,htmlMail);
+                MailUtils.sendHtmlMail(compte.getEmail(),subjectMail,htmlMail);
                 System.out.println("SUCCESS-SEND-MAIL");
                 String smsMessage = "Bonjour "+beneficier.getNom()+"\nVotre code de validation : "+beneficier.getCompte().getTempValidatePhone();
-                TwilioSMSUtils.sendMessage("+216" + beneficier.getTelephone(),smsMessage);
+                TwilioSMSUtils.sendMessage("+216" + compte.getPhone(),smsMessage);
                 System.out.println("SUCCESS-SEND-SMS");
 
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, "Vous avez terminé avec succès le processus d'inscription\ncliquer sur ok puis s'authentifiez par votre login et mot de passe", ButtonType.OK);
@@ -146,6 +146,19 @@ public class AddBeneficierController extends SharedController implements Initial
         } else {
             System.out.println("INVALIDE");
         }
+    }
+
+    void initBeneificier() {
+        loginID.setText("kheireddine");
+        passwordID.setText("azeAZE123*");
+        firstNameID.setText("kheireddine");
+        lastNameID.setText("mechergui");
+        emailID.setText("kheireddine.mechergui@gmail.com");
+        dateNaissanceID.setValue(LocalDate.now());
+        telephoneID.setText("25666888");
+        adresseID.setText("Beja");
+        carteHandicapNumberID.setText("1122334455");
+        dateExpirationID.setValue(LocalDate.now());
     }
 
     private boolean isValidBeneficier() {
@@ -281,7 +294,7 @@ public class AddBeneficierController extends SharedController implements Initial
         }
 
 
-        Pattern carteHandicapNumberPattern = Pattern.compile("^[0-9]{8}$");
+        Pattern carteHandicapNumberPattern = Pattern.compile("^[0-9]{10}$");
         Matcher carteHandicapNumberMatcher = carteHandicapNumberPattern.matcher(carteHandicapNumber);
         if (carteHandicapNumber.isBlank()) {
             errorCarteHandicapNumberID.setText("Carte est obligatoire");
@@ -289,7 +302,10 @@ public class AddBeneficierController extends SharedController implements Initial
         } else if (!carteHandicapNumberMatcher.matches()) {
             errorCarteHandicapNumberID.setText("Carte n'est pas valide");
             isValidCarteHandicapNumber = false;
-        } else {
+        }   else if (userModel.existsBeneficierByCarteHandicapNumber(carteHandicapNumber)) {
+            errorCarteHandicapNumberID.setText("Ce numéro de carte est déjà utilisé");
+            isValidCarteHandicapNumber = false;
+        }else {
             errorCarteHandicapNumberID.setText("");
             isValidCarteHandicapNumber = true;
         }
@@ -338,6 +354,7 @@ public class AddBeneficierController extends SharedController implements Initial
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("AddBenificierController.initialize()");
+        initBeneificier();
     }
 
     public void onRetourClick(ActionEvent actionEvent) {
