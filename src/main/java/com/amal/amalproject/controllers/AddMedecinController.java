@@ -492,7 +492,7 @@ public class AddMedecinController extends SharedController implements Initializa
                 "Urologue"
         );
         specialiteID.getItems().addAll(specialiteList);
-        initDoctor();
+        //initDoctor();
 //        maleRadioID.setToggleGroup(sexeGroupID);
 //        femaleRadioID.setToggleGroup(sexeGroupID);
 //        ValidationSupport support = new ValidationSupport();

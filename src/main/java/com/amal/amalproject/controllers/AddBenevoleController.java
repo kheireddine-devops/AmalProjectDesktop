@@ -328,7 +328,7 @@ public class AddBenevoleController extends SharedController implements Initializ
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("AddBenificierController.initialize()");
-        initBenevole();
+        //initBenevole();
     }
 
     public void onRetourClick(ActionEvent actionEvent) {

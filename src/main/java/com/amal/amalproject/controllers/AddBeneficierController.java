@@ -354,7 +354,7 @@ public class AddBeneficierController extends SharedController implements Initial
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("AddBenificierController.initialize()");
-        initBeneificier();
+        //initBeneificier();
     }
 
     public void onRetourClick(ActionEvent actionEvent) {

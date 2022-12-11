@@ -277,7 +277,7 @@ public class AddOrganizationController extends SharedController implements Initi
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("AddOrganizationController.initialize()");
-        initOrganization();
+        //initOrganization();
     }
 
     public void onRetourClick(ActionEvent actionEvent) {
