@@ -1,13 +1,13 @@
 package com.amal.amalproject.entities;
-
 import java.sql.Date;
-
 public class Candidature {
 private int id_emploi;
 private int id_compte;
 private Date date_postule;
 private String url_cv;
 private String niveau;
+private String message;
+
 public String getNiveau() {
 	return niveau;
 }
@@ -38,10 +38,34 @@ public String getUrl_cv() {
 public void setUrl_cv(String url_cv) {
 	this.url_cv = url_cv;
 }
+
+public String getMessage() {
+	return message;
+}
+public void setMessage(String message) {
+	this.message = message;
+}
+public Candidature(int id_emploi, int id_compte, Date date_postule, String url_cv, String niveau) {
+	
+	this.id_emploi = id_emploi;
+	this.id_compte = id_compte;
+	this.date_postule = date_postule;
+	this.url_cv = url_cv;
+	this.niveau = niveau;
+}
+public Candidature(int id_emploi, int id_compte, Date date_postule, String url_cv, String niveau, String message) {
+	super();
+	this.id_emploi = id_emploi;
+	this.id_compte = id_compte;
+	this.date_postule = date_postule;
+	this.url_cv = url_cv;
+	this.niveau = niveau;
+	this.message = message;
+}
 @Override
 public String toString() {
 	return "Candidature [id_emploi=" + id_emploi + ", id_compte=" + id_compte + ", date_postule=" + date_postule
-			+ ", url_cv=" + url_cv + ", niveau=" + niveau + "]";
+			+ ", url_cv=" + url_cv + ", niveau=" + niveau + ", message=" + message + "]";
 }
 @Override
 public int hashCode() {
@@ -66,13 +90,5 @@ public boolean equals(Object obj) {
 		return false;
 	return true;
 }
-public Candidature(int id_emploi, int id_compte, Date date_postule, String url_cv, String niveau) {
-	
-	this.id_emploi = id_emploi;
-	this.id_compte = id_compte;
-	this.date_postule = date_postule;
-	this.url_cv = url_cv;
-	this.niveau = niveau;
-}
-
+ 
 }

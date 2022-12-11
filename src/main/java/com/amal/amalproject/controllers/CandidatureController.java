@@ -22,6 +22,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
@@ -34,16 +35,6 @@ public class CandidatureController implements Initializable {
 
     @FXML
     private TextField txtetude;
-
-    @FXML
-    private TextField txtnom;
-
-    @FXML
-    private TextField txtprenom;
-
-    @FXML
-    private TextField txtmail;
-
     @FXML
     private Button btnimportcv;
 
@@ -57,6 +48,8 @@ public class CandidatureController implements Initializable {
     private Button btnannulerc;
     @FXML
     private PasswordField txtpassword;
+    @FXML
+    private TextArea txtmessage;
 
     
     //EmploiModel empModel = new EmploiModel();
@@ -76,23 +69,24 @@ public class CandidatureController implements Initializable {
      if (isInputValid()) {
 		 // envoi du mail de cadidature
 
-		 final String from = txtmail.getText();
-		 final String password = txtpassword.getText();
+		 final String from = "mkd.dev.ops@gmail.com";
 		 final String to = "sabrine.hasni@esprit.tn";
 		 final String title = "Candidature au poste de référence :" + emp.getRef_emploi();
-		 final String content = "Madame, Monsieur"
+		 final String content = txtmessage.getText();
+		 /*final String content = "Madame, Monsieur"
 				 + "\r\n"
 				 + "je vous présente ma candidature. Pour en savoir plus sur mes compétences mais également mes motivations,"
 				 + " je vous joins mon CV ."
 				 + "\r\n"
 				 + "Disponible dans les plus brefs délais, je reste à votre disposition pour tout complément d’information."
-				 + "\r\n" + "Monsieur, mes salutations distinguées.";
+				 + "\r\n" + "Monsieur, mes salutations distinguées.";*/
 		 final String anexo = txturlcv.getText();
 //		 JavaMailAttachement.sendEmail(from, password, to, title, content, anexo);
 		 MailUtils.sendMailFile(to,title,content,anexo);
 		 System.out.println("mail sending");
 
-		 Candidature cand = new Candidature(emp.getId_emploi(), 1, emp.getDate_expiration(), txturlcv.getText(), txtetude.getText());
+		// Candidature cand = new Candidature(emp.getId_emploi(), 1, emp.getDate_expiration(), txturlcv.getText(), txtetude.getText());
+		 Candidature cand = new Candidature(emp.getId_emploi(), 1, emp.getDate_expiration(), txturlcv.getText(), txtetude.getText(),txtmessage.getText());
 		 candModel.add(cand);
 
 //     Navigate.changerScene(event, "ListOffres.fxml", "Liste des offres");
@@ -114,8 +108,8 @@ public class CandidatureController implements Initializable {
     @FXML
     void OnImporter(ActionEvent event) {
      FileChooser fc =new FileChooser();
-     fc.setInitialDirectory(new File("C:\\Amal"));
-     fc.getExtensionFilters().addAll( new ExtensionFilter("Image File","*.jpg"));
+     fc.setInitialDirectory(new File("C:\\Amal\\CV"));
+     fc.getExtensionFilters().addAll( new ExtensionFilter("PDF File","*.pdf"));
      File selectedFile=fc.showOpenDialog(null);
      if(selectedFile!=null) {
     	 txturlcv.setText(selectedFile.getAbsolutePath());
@@ -147,23 +141,12 @@ public class CandidatureController implements Initializable {
 		if (txtetude.getText() == null || txtetude.getText().length() == 0){
 			errorMessage += " Niveau d'etude est obligatoire!\n";
 		}
-
-		if (txtnom.getText() == null || txtnom.getText().length() == 0){
-			errorMessage += "Nom invalid!\n";
-		}
-		if (txtprenom.getText() == null || txtprenom.getText().length() == 0){
-			errorMessage += "Prenom invalide!\n";
-		}
-
-		if (txtmail.getText() == null || txtmail.getText().length() == 0){
-			errorMessage += "Adresse mail doit etre sous forme exemple@esprit.tn\n";
-		}
 		
 		/*if (!txtmail.getText().matches("^([a-zA-Z]+[a-zA-Z1-9\\\\_\\\\-]*)@esprit.tn$")){
 			errorMessage += "Adresse mail doit etre sous forme exemple@esprit.tn\n";
 		}*/
-		if (txtpassword.getText() == null || txtpassword.getText().length() == 0){
-			errorMessage += "Merci de saisir votre mot de passe !\n";
+		if (txtmessage.getText() == null || txtmessage.getText().length() == 0){
+			errorMessage += "Merci de saisir un message d'accompagnement !\n";
 		}
 		if (txturlcv.getText() == null || txturlcv.getText().length() == 0){
 			errorMessage += " Attachement de cv est  obligatoire!\n";
