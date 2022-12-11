@@ -69,10 +69,11 @@ public class CandidatureController implements Initializable {
      if (isInputValid()) {
 		 // envoi du mail de cadidature
 
-		 final String from = "mkd.dev.ops@gmail.com";
-		 final String to = "sabrine.hasni@esprit.tn";
+		 //final String from = "sabrine.hasni@esprit.tn";
+		 final String to = "sabrinehasni3@gmail.com";
 		 final String title = "Candidature au poste de référence :" + emp.getRef_emploi();
 		 final String content = txtmessage.getText();
+		
 		 /*final String content = "Madame, Monsieur"
 				 + "\r\n"
 				 + "je vous présente ma candidature. Pour en savoir plus sur mes compétences mais également mes motivations,"
@@ -81,11 +82,8 @@ public class CandidatureController implements Initializable {
 				 + "Disponible dans les plus brefs délais, je reste à votre disposition pour tout complément d’information."
 				 + "\r\n" + "Monsieur, mes salutations distinguées.";*/
 		 final String anexo = txturlcv.getText();
-//		 JavaMailAttachement.sendEmail(from, password, to, title, content, anexo);
-		 MailUtils.sendMailFile(to,title,content,anexo);
-		 System.out.println("mail sending");
-
-		// Candidature cand = new Candidature(emp.getId_emploi(), 1, emp.getDate_expiration(), txturlcv.getText(), txtetude.getText());
+	 //JavaMailAttachement.sendEmail(from, password, to, title, content, anexo);
+        MailUtils.sendMailFile(to,title,content,anexo);
 		 Candidature cand = new Candidature(emp.getId_emploi(), 1, emp.getDate_expiration(), txturlcv.getText(), txtetude.getText(),txtmessage.getText());
 		 candModel.add(cand);
 

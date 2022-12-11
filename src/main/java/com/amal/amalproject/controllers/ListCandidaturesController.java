@@ -50,6 +50,8 @@ public class ListCandidaturesController implements Initializable{
     private TableColumn<Candidature, String> col_niv;
     @FXML
     private TableColumn<Candidature, Date> col_date;
+    @FXML
+    private TableColumn<Candidature, String> col_message;
     
     private List<Candidature> listCandidature = new ArrayList();
   	private CandidatureModel candModel = new CandidatureModel();
@@ -82,6 +84,10 @@ public class ListCandidaturesController implements Initializable{
 						Alert.AlertType.ERROR);
 			}
 		}
+    	
+    	Node source = (Node) event.getSource();
+		Stage stage = (Stage) source.getScene().getWindow();
+		stage.close();
     }
     private void alert(String titulo, String headerText, String contentText, Alert.AlertType type){
         Alert alert = new Alert(type);
@@ -129,6 +135,7 @@ public class ListCandidaturesController implements Initializable{
 		col_niv.setCellValueFactory(new PropertyValueFactory<>("niveau"));
 		col_cv.setCellValueFactory(new PropertyValueFactory<>("url_cv"));
 		col_date.setCellValueFactory(new PropertyValueFactory<>("date_postule"));
+		col_message.setCellValueFactory(new PropertyValueFactory<>("message"));
     }
 
 }
