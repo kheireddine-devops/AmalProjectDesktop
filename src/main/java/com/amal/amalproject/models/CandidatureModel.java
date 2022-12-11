@@ -14,6 +14,7 @@ import com.amal.amalproject.entities.Compte;
 import com.amal.amalproject.entities.Emploi;
 import com.amal.amalproject.utils.DBConnection;
 import com.amal.amalproject.utils.SessionUtils;
+import com.amal.amalproject.utils.enums.RoleEnum;
 
 public class CandidatureModel implements Iservice<Candidature>{
 	Connection connection = DBConnection.getConnection();
@@ -34,7 +35,7 @@ public class CandidatureModel implements Iservice<Candidature>{
 			ps.setString(4, t.getUrl_cv());
 			ps.setString(5, t.getNiveau());
 			ps.setString(6, t.getMessage());
-			
+			System.out.println(compte.getCompteId());
 			int n = ps.executeUpdate();
            System.out.println(n);
 		} catch (SQLException exception) {
@@ -73,9 +74,23 @@ public class CandidatureModel implements Iservice<Candidature>{
 		ArrayList<Candidature> candidatures = new ArrayList<Candidature>();
 		try {
 			Compte compte = SessionUtils.getCurrentUser();
-			PreparedStatement ps = connection.prepareStatement("SELECT ID_EMPLOI,ID_COMPTE,DATE_CANDIDATURE,URL_CV,NIVEAU FROM Candidatures WHERE ID_COMPTE = ? ;");
+			 String role =compte.getRole();
+			 ResultSet resultSet=null;
+			 
+			 if (role.equals("ROLE_BENEFICIER")){
+			PreparedStatement ps = connection.prepareStatement("SELECT ID_EMPLOI,ID_COMPTE,DATE_CANDIDATURE,URL_CV,NIVEAU,MESSAGE FROM Candidatures WHERE ID_COMPTE = ? ;");
+			
 			ps.setInt(1,compte.getCompteId());
-			ResultSet resultSet = ps.executeQuery();
+			 resultSet = ps.executeQuery();
+			 } else {
+				 PreparedStatement ps = connection.prepareStatement("SELECT CA.ID_EMPLOI,CA.ID_COMPTE,CA.DATE_CANDIDATURE,CA.URL_CV,CA.NIVEAU,CA.MESSAGE FROM Candidatures AS CA JOIN emplois AS E ON CA.id_emploi = E.id_emploi  WHERE E.ID_COMPTE = ? ;");
+					
+					ps.setInt(1,compte.getCompteId());
+					 resultSet = ps.executeQuery();
+			 }
+			 
+			
+			
 
 			while (resultSet.next()) {
 
@@ -84,11 +99,12 @@ public class CandidatureModel implements Iservice<Candidature>{
 				Date date_candidature = resultSet.getDate("date_candidature");
 				String url_cv= resultSet.getString("url_cv");
 				String niveau = resultSet.getString("niveau");
+				String message = resultSet.getString("message");
 				
 				
 				
 
-				candidatures.add(new Candidature(id_emploi, id_compte, date_candidature, url_cv, niveau));
+				candidatures.add(new Candidature(id_emploi, id_compte, date_candidature, url_cv, niveau,message));
 
 			}
 
@@ -98,6 +114,9 @@ public class CandidatureModel implements Iservice<Candidature>{
 		}
 		return candidatures;
 	}
+	
+	
+	///read all candidature of 
 
 	@Override
 	public void update(Candidature t) {

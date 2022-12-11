@@ -93,9 +93,16 @@ public class EmploiModel implements Iservice <Emploi>{
 		ArrayList<Emploi> emplois = new ArrayList<Emploi>();
 		try {
 			Compte compte = SessionUtils.getCurrentUser();
+			String role =compte.getRole();
+			 ResultSet resultSet=null;
+			 if (role.equals("ROLE_ORGANIZATION")){ 
 			PreparedStatement ps = connection.prepareStatement("SELECT id_emploi,titre_emploi,descriptif_emploi,secteur,ref_emploi,date_expiration FROM emplois WHERE id_compte = ?;");
 			ps.setInt(1,compte.getCompteId());
-			ResultSet resultSet = ps.executeQuery();
+			resultSet = ps.executeQuery();
+			}else {
+				PreparedStatement ps = connection.prepareStatement("SELECT id_emploi,titre_emploi,descriptif_emploi,secteur,ref_emploi,date_expiration FROM emplois ;");
+				resultSet = ps.executeQuery();
+			}
 
 			while (resultSet.next()) {
 

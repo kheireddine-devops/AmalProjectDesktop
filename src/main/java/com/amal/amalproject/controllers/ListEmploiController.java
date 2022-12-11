@@ -51,6 +51,9 @@ public class ListEmploiController implements Initializable {
 	@FXML
 	private Button btnsup;
 
+    @FXML
+    private Button btncandidature;
+
 	@FXML
 	private TableView<Emploi> table;
 
@@ -177,7 +180,12 @@ public class ListEmploiController implements Initializable {
 		String choix = combrech.getSelectionModel().getSelectedItem().toString();
 		// txtrech.setText(choix);
 	}
-	
+	//*******************************************************
+	  @FXML
+	    void OnCandidatures(ActionEvent event) throws IOException {
+		  Navigate.changerScene(event, "ListCandidatures.fxml", "Mes candidatures");
+
+	    }
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
