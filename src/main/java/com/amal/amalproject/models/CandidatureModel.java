@@ -22,7 +22,7 @@ public class CandidatureModel implements Iservice<Candidature>{
 		// TODO Auto-generated method stub
 		try {
 
-			PreparedStatement ps = connection.prepareStatement("INSERT INTO candidatures(ID_EMPLOI,ID_COMPTE,DATE_CANDIDATURE,URL_CV,NIVEAU) VALUES (?,?,?,?,?)");
+			PreparedStatement ps = connection.prepareStatement("INSERT INTO candidatures(ID_EMPLOI,ID_COMPTE,DATE_CANDIDATURE,URL_CV,NIVEAU,MESSAGE) VALUES (?,?,?,?,?,?)");
 			LocalDate todaysDate = LocalDate.now();
 	        Date date = java.sql.Date.valueOf(todaysDate);
 
@@ -33,6 +33,7 @@ public class CandidatureModel implements Iservice<Candidature>{
 			ps.setDate(3,date);
 			ps.setString(4, t.getUrl_cv());
 			ps.setString(5, t.getNiveau());
+			ps.setString(6, t.getMessage());
 			
 			int n = ps.executeUpdate();
            System.out.println(n);
