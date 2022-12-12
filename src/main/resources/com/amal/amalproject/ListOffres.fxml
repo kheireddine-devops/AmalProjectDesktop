@@ -26,29 +26,29 @@
 
 <BorderPane stylesheets="@stylessabrine.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.amal.amalproject.controllers.ListOffresController">
    <center>
-      <AnchorPane>
+      <AnchorPane prefHeight="733.0" prefWidth="1213.0">
          <children>
-            <Pane layoutX="5.0" layoutY="17.0" prefHeight="567.0" prefWidth="790.0">
+            <Pane layoutX="12.0" layoutY="89.0" prefHeight="644.0" prefWidth="1206.0">
                <children>
-                  <Button fx:id="btnpostuler" alignment="BOTTOM_LEFT" layoutX="661.0" layoutY="511.0" mnemonicParsing="false" onAction="#OnPostuler" prefHeight="31.0" prefWidth="119.0" text="Postuler" />
+                  <Button fx:id="btnpostuler" alignment="BOTTOM_LEFT" layoutX="1023.0" layoutY="580.0" mnemonicParsing="false" onAction="#OnPostuler" prefHeight="31.0" prefWidth="119.0" text="Postuler" />
                   <Button fx:id="btnannuler" alignment="BASELINE_LEFT" layoutX="514.0" layoutY="513.0" mnemonicParsing="false" onAction="#OnAnnuler" prefHeight="31.0" prefWidth="111.0" style="visibility: hidden;" text="Annuler" />
-                  <TableView fx:id="table" layoutX="4.0" layoutY="160.0" prefHeight="325.0" prefWidth="779.0">
+                  <TableView fx:id="table" layoutX="23.0" layoutY="99.0" prefHeight="460.0" prefWidth="1118.0">
                      <columns>
-                        <TableColumn fx:id="col_titre" minWidth="7.0" prefWidth="99.0" text="Titre" />
-                        <TableColumn fx:id="col_sec" prefWidth="82.0" text="Secteur" />
-                        <TableColumn fx:id="col_desc" prefWidth="208.0" text="Description" />
-                        <TableColumn fx:id="col_ref" prefWidth="235.0" text="Réference" />
-                        <TableColumn fx:id="col_date" prefWidth="130.0" text="Date expiration" />
+                        <TableColumn fx:id="col_ref" prefWidth="122.0" text="Réference" />
+                        <TableColumn fx:id="col_titre" minWidth="7.0" prefWidth="135.0" text="Titre" />
+                        <TableColumn fx:id="col_sec" prefWidth="155.0" text="Secteur" />
+                        <TableColumn fx:id="col_desc" prefWidth="537.0" text="Description" />
+                        <TableColumn fx:id="col_date" prefWidth="179.0" text="Date expiration" />
                      </columns>
                   </TableView>
-                  <ComboBox fx:id="combrech" layoutX="154.0" layoutY="103.0" onAction="#selectChoix" prefHeight="31.0" prefWidth="193.0" promptText="Recherche par" />
-                  <TextField fx:id="txtrech" layoutX="373.0" layoutY="103.0" prefHeight="31.0" prefWidth="262.0" promptText="élément à rechercher" />
-                  <Button fx:id="btnrech" layoutX="664.0" layoutY="101.0" mnemonicParsing="false" onAction="#OnRecherche" prefHeight="31.0" prefWidth="107.0" text="Recherche" />
-                  <Button fx:id="btncandidature" alignment="BOTTOM_LEFT" layoutX="10.0" layoutY="513.0" mnemonicParsing="false" onAction="#OnCandidatures" prefHeight="31.0" prefWidth="148.0" text="Mes candidatures" />
-                  <Button fx:id="btnrefresh" layoutX="9.0" layoutY="103.0" mnemonicParsing="false" onAction="#onRefresh" prefHeight="31.0" prefWidth="103.0" text="Refresh" />
+                  <ComboBox fx:id="combrech" layoutX="45.0" layoutY="36.0" onAction="#selectChoix" prefHeight="31.0" prefWidth="193.0" promptText="Recherche par" />
+                  <TextField fx:id="txtrech" layoutX="264.0" layoutY="36.0" prefHeight="31.0" prefWidth="262.0" promptText="élément à rechercher" />
+                  <Button fx:id="btnrech" layoutX="581.0" layoutY="34.0" mnemonicParsing="false" onAction="#OnRecherche" prefHeight="31.0" prefWidth="107.0" text="Recherche" />
+                  <Button fx:id="btncandidature" alignment="BOTTOM_LEFT" layoutX="39.0" layoutY="581.0" mnemonicParsing="false" onAction="#OnCandidatures" prefHeight="31.0" prefWidth="148.0" text="Mes candidatures" />
+                  <Button fx:id="btnrefresh" layoutX="1037.0" layoutY="36.0" mnemonicParsing="false" onAction="#onRefresh" prefHeight="31.0" prefWidth="103.0" text="Refresh" />
                </children>
             </Pane>
-            <HBox layoutY="-1.0" prefHeight="90.0" prefWidth="800.0" style="-fx-background-color: #FFDAAF;">
+            <HBox layoutY="-1.0" prefHeight="90.0" prefWidth="1221.0" style="-fx-background-color: #FFDAAF;">
                <children>
                   <ImageView fitHeight="80.0" fitWidth="97.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -63,14 +63,6 @@
                         <Font name="Arial Italic" size="24.0" />
                      </font>
                   </Label>
-                  <ImageView fitHeight="80.0" fitWidth="86.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../imagessab/logo.png" />
-                     </image>
-                     <HBox.margin>
-                        <Insets left="320.0" top="5.0" />
-                     </HBox.margin>
-                  </ImageView>
                </children>
             </HBox>
          </children>

@@ -59,10 +59,6 @@ public class ListEmploiController implements Initializable {
 
 	@FXML
 	private TableView<Emploi> table;
-
-	@FXML
-	private TableColumn<Emploi, Integer> col_id;
-
 	@FXML
 	private TableColumn<Emploi, String> col_titre;
 
@@ -253,7 +249,7 @@ public class ListEmploiController implements Initializable {
 	        table.getItems().clear();
 	    }
 	 public void definingColumn(){
-		    col_id.setCellValueFactory(new PropertyValueFactory<>("id_emploi"));
+		   // col_id.setCellValueFactory(new PropertyValueFactory<>("id_emploi"));
 			col_titre.setCellValueFactory(new PropertyValueFactory<>("titre_emploi"));
 			col_sec.setCellValueFactory(new PropertyValueFactory<>("secteur"));
 			col_desc.setCellValueFactory(new PropertyValueFactory<>("descriptif_emploi"));
