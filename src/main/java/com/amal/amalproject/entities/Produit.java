@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class Produit extends Application {
+    String textAvis;
     int id_produit;
     String libele;
     float  prix_produit;
