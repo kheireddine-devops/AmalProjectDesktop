@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import com.amal.amalproject.entities.Candidature;
 import com.amal.amalproject.entities.Emploi;
+import com.amal.amalproject.entities.MappedCandidature;
 import com.amal.amalproject.models.CandidatureModel;
 import com.amal.amalproject.models.EmploiModel;
 import com.amal.amalproject.utils.Navigate;
@@ -39,7 +40,7 @@ public class ListCandidaturesController implements Initializable{
     private Button btnannuler;
 
     @FXML
-    private TableView<Candidature> table;
+    private TableView<MappedCandidature> table;
 
     @FXML
     private TableColumn<?, String> col_ref;
@@ -70,7 +71,7 @@ public class ListCandidaturesController implements Initializable{
 
 			dialogoExe.showAndWait().ifPresent(b -> {
 				if (b == btnYes) {
-					candModel.delete(table.getSelectionModel().getSelectedItem());
+					candModel.deleteMapped(table.getSelectionModel().getSelectedItem());
 					//loadEmploi(true);
 					System.out.println("Votre candidature est annulé");
 				}
@@ -113,7 +114,7 @@ public class ListCandidaturesController implements Initializable{
 	public void initialize(URL location, ResourceBundle resources) {
 
 		try {
-			ArrayList<Candidature> list = candModel.readAll();
+			ArrayList<MappedCandidature> list = candModel.readAllMapped();
 			this.remplirTab(list);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -123,19 +124,20 @@ public class ListCandidaturesController implements Initializable{
 	}
 	
 	
-	public void remplirTab(ArrayList<Candidature> list) throws SQLException {
+	public void remplirTab(ArrayList<MappedCandidature> list) throws SQLException {
 
-		ObservableList<Candidature> obs = FXCollections.observableArrayList(list);
+		ObservableList<MappedCandidature> obs = FXCollections.observableArrayList(list);
 		definingColumn();
 
-		table.setItems((ObservableList<Candidature>) obs);
+		table.setItems((ObservableList<MappedCandidature>) obs);
 	}
     public void definingColumn(){
-    	col_ref.setCellValueFactory(new PropertyValueFactory<>("id_emploi"));
+    	col_ref.setCellValueFactory(new PropertyValueFactory<>("ref_emploi"));
 		col_niv.setCellValueFactory(new PropertyValueFactory<>("niveau"));
 		col_cv.setCellValueFactory(new PropertyValueFactory<>("url_cv"));
 		col_date.setCellValueFactory(new PropertyValueFactory<>("date_postule"));
 		col_message.setCellValueFactory(new PropertyValueFactory<>("message"));
+		
     }
 
 }
