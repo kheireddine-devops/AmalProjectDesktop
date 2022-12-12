@@ -3,6 +3,7 @@ package com.amal.amalproject.entities;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class Produit extends Application {
@@ -13,6 +14,10 @@ public class Produit extends Application {
     String description_produit;
     String photo_produit;
     int numVendeur;
+    private String cathegorie;
+    private LocalDate dateP;
+    private int id_beneficier;
+
 
     public Produit() {
     }
@@ -86,6 +91,30 @@ public class Produit extends Application {
 
     public void setNumVendeur(int numVendeur) {
         this.numVendeur = numVendeur;
+    }
+
+    public String getCathegorie() {
+        return cathegorie;
+    }
+
+    public void setCathegorie(String cathegorie) {
+        this.cathegorie = cathegorie;
+    }
+
+    public LocalDate getDateP() {
+        return dateP;
+    }
+
+    public void setDateP(LocalDate dateP) {
+        this.dateP = dateP;
+    }
+
+    public int getId_beneficier() {
+        return id_beneficier;
+    }
+
+    public void setId_beneficier(int id_beneficier) {
+        this.id_beneficier = id_beneficier;
     }
 
     @Override

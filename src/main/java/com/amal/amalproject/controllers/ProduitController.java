@@ -24,47 +24,47 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.net.URL;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 
 public class ProduitController implements Initializable {
 
-    @FXML
-    private TableColumn<Produit, String> descriptionP;
-       @FXML
-        private TableColumn<Produit, String> imgUrlP;
-
         @FXML
         private TextField libeleProduit;
 
+
+        @FXML
+        private TableColumn<Produit, String> descriptionP;
+        @FXML
+        private TableColumn<Produit, String> imgUrlP;
         @FXML
         private TableColumn<Produit, String> libeleProduitP;
-
-        @FXML
-        private TextField numVendeur;
-
         @FXML
         private TableColumn<Produit, Integer> contactVP;
         @FXML
+        private TableColumn<Produit, Float> prixP;
+        @FXML
+        private TableColumn<Produit, Integer> idProduitP =null;
+        @FXML
+        private TableColumn<Produit, LocalDate> dateP;
+        @FXML
+        private TableColumn<Produit, String> cathegorie;
+
+        @FXML
+        private TextField numVendeur;
+        @FXML
         private TextField prixProduit;
         @FXML
-        private TableColumn<Produit, Float> prixP;
-
-        @FXML
         private ImageView imageProduit;
-
         @FXML
         private TextArea descriptionProduit;
-
         @FXML
         private Button btnAddP;
-
         @FXML
         private Button btnDeleteP;
         @FXML
         private Button btnUpdateP;
-        @FXML
-        private TableColumn<Produit, Integer> idProduitP =null;
         @FXML
         private TableView<Produit> tableP;
         private String imageURL = null;
@@ -187,13 +187,15 @@ public class ProduitController implements Initializable {
 
             public void initialize(URL url, ResourceBundle resourceBundle) {
                 Compte compte = SessionUtils.getCurrentUser();
-                idProduitP.setCellValueFactory(new PropertyValueFactory<>("id_produit"));
+//                idProduitP.setCellValueFactory(new PropertyValueFactory<>("id_produit"));
                 libeleProduitP.setCellValueFactory(new PropertyValueFactory<>("libele"));
                 prixP.setCellValueFactory(new PropertyValueFactory<>("prix_produit"));
                 descriptionP.setCellValueFactory(new PropertyValueFactory<>("description_produit"));
                 imgUrlP.setCellValueFactory(new PropertyValueFactory<>("photo_produit"));
                 contactVP.setCellValueFactory(new PropertyValueFactory<>("numVendeur"));
-                tableP.setItems(ProduitModel.getAllProduct());
+//                cathegorie.setCellValueFactory(new PropertyValueFactory<>("cathegorie"));
+//                dateP.setCellValueFactory(new PropertyValueFactory<>("dateP"));
+//                tableP.setItems(ProduitModel.getAllProduct());
 
             }
 

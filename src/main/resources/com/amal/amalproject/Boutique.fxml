@@ -83,7 +83,7 @@
                             <children>
                                 <HBox prefHeight="64.0" prefWidth="200.0" style="-fx-background-color: transparent;">
                                     <children>
-                                        <Label alignment="TOP_LEFT" prefHeight="54.0" prefWidth="133.0" style="-fx-background-color: transparent;" text="Produit" textFill="WHITE">
+                                        <Label fx:id="Blibele" alignment="TOP_LEFT" prefHeight="54.0" prefWidth="133.0" style="-fx-background-color: transparent;" text="Produit" textFill="WHITE">
                                             <font>
                                                 <Font name="Cambria Bold" size="30.0" />
                                             </font>
@@ -97,7 +97,7 @@
                                                 <Insets top="6.0" />
                                             </padding>
                                         </Label>
-                                        <Label id="nomProduit" alignment="TOP_LEFT" prefHeight="54.0" prefWidth="81.0" style="-fx-background-color: transparent;" text="\$ Price" textFill="WHITE">
+                                        <Label id="nomProduit" fx:id="Bprix" alignment="TOP_LEFT" prefHeight="54.0" prefWidth="81.0" style="-fx-background-color: transparent;" text="\$ Price" textFill="WHITE">
                                             <font>
                                                 <Font name="Cambria Bold" size="25.0" />
                                             </font>
@@ -116,7 +116,7 @@
                                         <Insets left="15.0" right="15.0" top="10.0" />
                                     </VBox.margin>
                                 </HBox>
-                                <ImageView id="imgproduit" fitHeight="300.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+                                <ImageView id="imgproduit" fx:id="BimgProduit" fitHeight="300.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
                                         <Image url="@../../../image/P1.jpg" />
                                     </image>
@@ -137,7 +137,7 @@
                                                 <Insets left="15.0" />
                                             </VBox.margin>
                                         </Label>
-                                        <TextArea id="DescriptifProduit" accessibleRole="TEXT_FIELD" prefHeight="160.0" prefWidth="255.0" promptText="Le produit est un chef d'oeuvre construite with Love..." text="Le produit est un chef &#10;d'oeuvre construite with&#10; Love ... ">
+                                        <TextArea id="DescriptifProduit" fx:id="Bdescriptif" accessibleRole="TEXT_FIELD" prefHeight="160.0" prefWidth="255.0" promptText="Le produit est un chef d'oeuvre construite with Love..." text="Le produit est un chef &#10;d'oeuvre construite with&#10; Love ... ">
                                             <font>
                                                 <Font name="Cambria Italic" size="18.0" />
                                             </font>
@@ -145,7 +145,7 @@
                                                 <Insets bottom="5.0" left="15.0" right="15.0" />
                                             </VBox.margin>
                                         </TextArea>
-                                        <Button id="CommanderBtn" alignment="CENTER" mnemonicParsing="false" prefHeight="44.0" prefWidth="250.0" style="-fx-background-color: white; -fx-background-radius: 100;" text="NumVendeur" textAlignment="CENTER" textFill="#c097cb">
+                                        <Button id="CommanderBtn" fx:id="Btncontat" alignment="CENTER" mnemonicParsing="false" prefHeight="44.0" prefWidth="250.0" style="-fx-background-color: white; -fx-background-radius: 100;" text="Contacter Vendeur" textAlignment="CENTER" textFill="#c097cb">
                                             <font>
                                                 <Font name="Arial Bold" size="20.0" />
                                             </font>
@@ -206,15 +206,17 @@
                                         <Insets top="10.0" />
                                     </HBox.margin>
                                     <content>
-                                        <TableView fx:id="tablePB" prefHeight="710.0" prefWidth="671.0" stylesheets="@../../../values/style.css">
+                                        <TableView fx:id="tablePB" onMouseClicked="#clickTable" prefHeight="710.0" prefWidth="671.0" stylesheets="@../../../values/style.css">
                                             <columns>
-                                                <TableColumn fx:id="idProduitB" prefWidth="44.79995709657669" text="Id" />
+<!--                                                <TableColumn fx:id="idProduitB" prefWidth="44.79995709657669" text="Id" />-->
                                                 <TableColumn fx:id="libeleProduitB" prefWidth="90.13330078125" text="Libele" />
                                                 <TableColumn fx:id="prixProduitB" prefWidth="98.66671752929688" text="Prix_Produit" />
                                                 <TableColumn fx:id="descriptifProduitB" prefWidth="127.7332763671875" text="Descriptif" />
                                                 <TableColumn fx:id="imageProduitB" prefWidth="105.066650390625" text="Img Url" />
-                                                <TableColumn fx:id="idBenificierB" prefWidth="92.7999267578125" text="id_Benificier" />
+<!--                                                <TableColumn fx:id="idBenificierB" prefWidth="92.7999267578125" text="id_Benificier" />-->
                                                 <TableColumn fx:id="numVendeurB" prefWidth="109.60015869140625" text="NumVendeur" />
+                                                <TableColumn fx:id="cathegorie" prefWidth="92.7999267578125" text="Categorie" />
+                                                <TableColumn fx:id="dateP" prefWidth="109.60015869140625" text="Date" />
                                             </columns>
                                             <opaqueInsets>
                                                 <Insets />

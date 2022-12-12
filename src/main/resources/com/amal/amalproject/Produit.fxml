@@ -70,13 +70,15 @@
          </font></Button>
       <TableView fx:id="tableP" layoutX="53.0" layoutY="469.0" onMouseClicked="#clickTable" prefHeight="264.0" prefWidth="851.0">
          <columns>
-            <TableColumn fx:id="idProduitP" prefWidth="75.0" text="Id" />
-
+<!--            <TableColumn fx:id="idProduitP" prefWidth="75.0" text="Id" />-->
             <TableColumn fx:id="libeleProduitP" prefWidth="104.800048828125" text="Libele" />
             <TableColumn fx:id="prixP" prefWidth="138.933349609375" text="Prix" />
             <TableColumn fx:id="descriptionP" prefWidth="202.66665649414062" text="Description" />
             <TableColumn fx:id="imgUrlP" prefWidth="176.26669311523438" text="ImgUrl" />
             <TableColumn fx:id="contactVP" prefWidth="152.0" text="Contact_Vendeur" />
+<!--            <TableColumn fx:id="contactVP" prefWidth="152.0" text="Contact_Vendeur" />-->
+<!--            <TableColumn fx:id="contactVP" prefWidth="152.0" text="Contact_Vendeur" />-->
+<!--            <TableColumn fx:id="contactVP" prefWidth="152.0" text="Contact_Vendeur" />-->
          </columns>
       </TableView>
       <Button fx:id="btnAdd" layoutX="200.0" layoutY="738.0" mnemonicParsing="false" onAction="#insert" prefHeight="40.0" prefWidth="200.0" text="Ajouter" textFill="#7294ac" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="192.0">

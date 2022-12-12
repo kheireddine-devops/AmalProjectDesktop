@@ -16,7 +16,7 @@ public class ImporterImage {
 
     public static Path rootPath=null;
     static {
-        rootPath = Paths.get(System.getProperty("user.home")+"/static/images");
+        rootPath = Paths.get(Path.of("").toAbsolutePath().getParent() + "/AmalProjectServer/public/uploads/images/produits");
 
         if(!Files.exists(rootPath)){
             System.out.println("Image created successfully");

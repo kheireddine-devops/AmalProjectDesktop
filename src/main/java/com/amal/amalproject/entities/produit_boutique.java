@@ -25,42 +25,52 @@ public class produit_boutique {
     }
 
     public int getId_produit() {
+
         return id_produit;
     }
 
     public void setId_produit(int id_produit) {
+
         this.id_produit = id_produit;
     }
 
     public String getLibele() {
+
         return libele;
     }
 
     public void setLibele(String libele) {
+
         this.libele = libele;
     }
 
     public double getPrix_produit() {
+
         return prix_produit;
     }
 
     public void setPrix_produit(double prix_produit) {
+
         this.prix_produit = prix_produit;
     }
 
     public String getDescription_produit() {
+
         return description_produit;
     }
 
-    public void setDescriptiion_produit(String descriptiion_produit) {
+    public void setDescription_produit(String description_produit) {
+
         this.description_produit = description_produit;
     }
 
     public String getPhoto_produit() {
+
         return photo_produit;
     }
 
     public void setPhoto_produit(String photo_produit) {
+
         this.photo_produit = photo_produit;
     }
 
