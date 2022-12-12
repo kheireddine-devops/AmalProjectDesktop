@@ -32,6 +32,7 @@ import javafx.stage.Stage;
 
 public class AddEmploiController implements Initializable  {
 	private EmploiModel em =new EmploiModel();
+	
 	@FXML
 	private AnchorPane Apid;
 
@@ -65,6 +66,7 @@ public class AddEmploiController implements Initializable  {
 		stage.close();
 		
 	}
+
 	@FXML
 	void onClick(ActionEvent event) throws IOException {
 		if (isInputValid()){
@@ -77,10 +79,14 @@ public class AddEmploiController implements Initializable  {
 
 			Emploi e =new Emploi(titre,desc,secteur,ref,dateexp);
 			em.add(e);
+			
+		
 //			Navigate.changerScene(event, "ListEmploi.fxml", "Lise des offres");
 			Node source = (Node) event.getSource();
 			Stage stage = (Stage) source.getScene().getWindow();
 			stage.close();
+
+		     
 			/*
 			txttitre.clear();
 			txtsecteur.clear();
