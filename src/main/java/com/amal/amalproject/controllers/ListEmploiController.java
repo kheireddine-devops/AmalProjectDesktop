@@ -53,6 +53,9 @@ public class ListEmploiController implements Initializable {
 
     @FXML
     private Button btncandidature;
+    @FXML
+    private Button btnrefresh;
+
 
 	@FXML
 	private TableView<Emploi> table;
@@ -185,6 +188,11 @@ public class ListEmploiController implements Initializable {
 	    void OnCandidatures(ActionEvent event) throws IOException {
 		  Navigate.changerScene(event, "ListCandidatures.fxml", "Mes candidatures");
 
+	    }
+	  @FXML
+	    void onRefresh(ActionEvent event)throws IOException {
+		  
+		  loadEmploi(true);
 	    }
 
 	@Override

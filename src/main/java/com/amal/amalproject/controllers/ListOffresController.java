@@ -67,6 +67,8 @@ public class ListOffresController extends SharedController implements Initializa
 
     @FXML
     private Button btnrech;
+    @FXML
+    private Button btnrefresh;
 
     @FXML
     private Button btncandidature;
@@ -108,6 +110,10 @@ public class ListOffresController extends SharedController implements Initializa
 //    	Navigate.changerScene(event, "Candidature.fxml", "Liste des offres");
 
     }
+    @FXML
+    void onRefresh(ActionEvent event) {
+    	loadEmploi(true);
+    }
 
     @FXML
     void OnCandidatures(ActionEvent event) throws IOException {
@@ -123,13 +129,9 @@ public class ListOffresController extends SharedController implements Initializa
  		  CandidatureController controller=loader.getController();
  		  controller.getFields(table.getSelectionModel().getSelectedItem());
 
-
-
 //        FXMLLoader loader= MainApplication.loadSubFXML("Candidature");
 //        CandidatureController controller=loader.getController();
-//        controller.getFields(table.getSelectionModel().getSelectedItem());
-
-    	
+//        controller.getFields(table.getSelectionModel().getSelectedItem());	
     }
 
     @FXML

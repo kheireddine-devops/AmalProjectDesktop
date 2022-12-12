@@ -54,6 +54,7 @@ public class UpdateEmploiController {
 		stage.close();
 	}
 	EmploiModel empModel = new EmploiModel();
+
 	private Emploi emp ;
 	@FXML
 	void onModifier(ActionEvent event) throws IOException {
@@ -65,6 +66,7 @@ public class UpdateEmploiController {
 			emp.setDescriptif_emploi(txtdesc.getText());
 			emp.setDate_expiration(java.sql.Date.valueOf(dateExp.getValue()));
 			empModel.update(emp);
+			
 //			Navigate.changerScene(event, "ListEmploi.fxml", "Lise des offres");
 			Node source = (Node) event.getSource();
 			Stage stage = (Stage) source.getScene().getWindow();
